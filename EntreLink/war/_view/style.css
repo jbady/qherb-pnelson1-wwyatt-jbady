@@ -1,10 +1,9 @@
 body {
-	font-size: 36x;
+	font-size: 128x;
 }
 
-.description {
+#description {
 	color: blue;
 	font-family: Times New Roman;
-	font-size: 36x;
 	text-align: center;
 	}

@@ -5,17 +5,16 @@
 <html>
 	<head>
 		<title>EntreLink - Log in</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 	</head>
 
 	<body>
-	
+		<form action="${pageContext.servletContext.contextPath}/login" method="post">
 		<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
 		
 		<div class = "header">Enter Your Login Information</div>
-		<form action="${pageContext.servletContext.contextPath}/login" method="post">
 			<!-- Super secret variable names so we don't get rekt by SQL injections :^) -->
 			<p>Username or Email</p>
 				<input type="text" name="emailAsUsername" size="12" value="${emailAsUsername}" /><br>

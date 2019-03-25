@@ -64,11 +64,32 @@ public class FakeDatabaseTest {
 		assertEquals(user.getUsername(), null);
 		
 		// Tests finding a user that does not exist with another username
-		user = db.findUserByEmailOrUsername("5");
+		user = db.findUserByEmailOrUsername("pnelson1@ycp.edy");
 		assertEquals(user.getEmail(), null);
 		assertEquals(user.getPassword(), null);
 		assertEquals(user.getUserFirstName(), null);
 		assertEquals(user.getUserLastName(), null);
 		assertEquals(user.getUsername(), null);
+	}
+	
+	@Test
+	public void testFindUserByEmailOrUsernameNoEntry() {
+		
+		// Nothing was typed in
+		user = db.findUserByEmailOrUsername("");
+		assertEquals(user.getEmail(), null);
+		assertEquals(user.getPassword(), null);
+		assertEquals(user.getUserFirstName(), null);
+		assertEquals(user.getUserLastName(), null);
+		assertEquals(user.getUsername(), null);
+		
+		// Null input
+		user = db.findUserByEmailOrUsername(null);
+		assertEquals(user.getEmail(), null);
+		assertEquals(user.getPassword(), null);
+		assertEquals(user.getUserFirstName(), null);
+		assertEquals(user.getUserLastName(), null);
+		assertEquals(user.getUsername(), null);
+		
 	}
 }

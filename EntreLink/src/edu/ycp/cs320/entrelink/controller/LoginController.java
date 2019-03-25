@@ -20,11 +20,13 @@ public class LoginController {
 	User getUser;
 	
 	public boolean verifyUser() {
-		getUser = db.findUserByEmailOrUsername(model.getEmail());
-		if(!getUser.equals(null)) {
-			if (getUser.getPassword().equals(model.getPassword())) {
-				model = getUser;
-				return true;
+		if(model != null) {
+			getUser = db.findUserByEmailOrUsername(model.getEmail());
+			if(getUser.getUserFirstName() != null) {
+				if (getUser.getPassword().equals(model.getPassword())) {
+					model = getUser;
+					return true;
+				}
 			}
 		}
 	return false;

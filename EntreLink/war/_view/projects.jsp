@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<title>EntreLink - Projects</title>
-		<link rel="stylesheet" href="/EntreLink/war/_view/style.css">
+		<link rel = "stylesheet" href = "EntreLink/war/_view/style.css"/>
 	</head>
 
 	<body>

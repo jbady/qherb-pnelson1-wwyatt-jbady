@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.ycp.cs320.entrelink.controller.LoginController;
 import edu.ycp.cs320.entrelink.model.User;
+import edu.ycp.cs320.entrelink.servlet.ProfileServlet;
 
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -54,6 +55,7 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(isUser);
 			if(!isUser) {
 				errorMessage = "The username or password is incorrect.";
+				req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
 			}
 			// otherwise, log the user in
 			else {
@@ -63,10 +65,13 @@ public class LoginServlet extends HttpServlet {
 		
 		// add result objects as attributes
 		// this adds the errorMessage text and the result to the response
-		req.setAttribute("errorMessage", errorMessage);
+		//req.setAttribute("errorMessage", errorMessage);
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
+		if(req.getParameter("submitLoginData")!=null) {
+			ProfileServlet serv = new ProfileServlet();
+			serv.doGet(req, resp);
+		}
 	}
 
 	

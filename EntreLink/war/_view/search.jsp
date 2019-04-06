@@ -29,9 +29,7 @@
 				float: right;
 			}
 			#searchBar{
-				margin-left:auto;
-				margin-right:auto;
-				display: block;
+				
 			}
 		</style>
 	</head>

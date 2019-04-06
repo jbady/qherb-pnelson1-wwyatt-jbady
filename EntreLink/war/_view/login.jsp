@@ -6,21 +6,53 @@
 	<head>
 		<title>EntreLink - Log in</title>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
+		
+		<style type="text/css">
+		
+			body, html {
+				width: 100%;
+				height: 100%;
+				background-color: #f2f2f2;
+			}
+			
+			form {
+				display: block;
+				margin: 0 auto;
+				margin-top: 100px;
+				background-color: green;
+				padding: 50px;
+				border-radius: 20px;
+				width: 200px;
+				color: white;
+			}
+			
+			input {
+				margin: 0 auto;
+				margin-bottom: 20px;
+				width: 100%;
+			}
+			input:last-child {
+				margin-bottom: 20px;
+			}
+			
+		</style>
+
 	</head>
 
 	<body>
-		<form action="${pageContext.servletContext.contextPath}/login" method="post">
-		<c:if test="${! empty errorMessage}">
+			<c:if test="${! empty errorMessage}">
 			<div class="error">${errorMessage}</div>
 		</c:if>
 		
-		<div class = "header">Enter Your Login Information</div>
+		<form action="${pageContext.servletContext.contextPath}/login" method="post">
+		
 			<!-- Super secret variable names so we don't get rekt by SQL injections :^) -->
-			<p>Username or Email</p>
-				<input type="text" name="emailAsUsername" size="12" value="${emailAsUsername}" /><br>
-			<p>Password</p>
-				<input type="text" name="passwordOfUser" size="12" value="${passwordOfUser}" /><br>
-			<input type="Submit" name="submitLoginData" value="Log in">
+			Username or email:<br>
+			<input type="text" name="emailAsUsername" size="12" value="${emailAsUsername}" /><br>
+			Password:<br>
+			<input type="password" name="passwordOfUser" size="12" value="${passwordOfUser}" /><br>
+			<center><input type="Submit" name="submitLoginData" value="Log in"></center>
+			
 		</form>
 
 		<c:if test="${! empty loggedInName}">

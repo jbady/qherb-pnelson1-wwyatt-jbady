@@ -23,13 +23,12 @@ public class User {
 		isLoggedIn = false;
 	}
 	
-	public User(String username, String password, String userFirstName, String userLastName, String email, int userId, String userType) {
+	public User(String username, String password, String userFirstName, String userLastName, String email, String userType) {
 		this.username = username;
 		this.password = password;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.email = email;
-		this.userId = userId;
 		this.userType = userType;
 		messages = new ArrayList<Message>();
 	}

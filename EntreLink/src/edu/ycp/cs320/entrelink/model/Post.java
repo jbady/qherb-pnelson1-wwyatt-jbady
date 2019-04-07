@@ -15,14 +15,13 @@ public class Post {
 	private String postDescription;
 	private ArrayList<String> tags;
 	
-	public Post(User user, int timePosted, int postId, String postTitle, String postDescription, ArrayList<String> tags) {
+	public Post(User user, int timePosted, String postTitle, String postDescription, ArrayList<String> tags) {
 		// User-related fields
 		posterId = user.getUserId();
 		name = user.getUserFirstName() + " " + user.getUserLastName();
 		
 		// Everything else
 		this.timePosted = timePosted;
-		this.postId = postId;
 		this.postTitle = postTitle;
 		this.postDescription = postDescription;
 		this.tags = tags;

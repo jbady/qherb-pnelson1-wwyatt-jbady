@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.entrelink.controller.LoginController;
 import edu.ycp.cs320.entrelink.model.User;
@@ -17,6 +18,7 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		HttpSession session=req.getSession(); 
 
 		System.out.println("Login Servlet: doGet");	
 		
@@ -61,17 +63,23 @@ public class LoginServlet extends HttpServlet {
 			else {
 				model.setIsLoggedIn(true);
 				req.setAttribute("loggedInName", controller.getModel().getUserFirstName() + " " + controller.getModel().getUserLastName());
+				HttpSession session=req.getSession(); 
+				session.setAttribute("loggedInName", controller.getModel().getUserFirstName() + " " + controller.getModel().getUserLastName());
+		        req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 			}
 		
-		// add result objects as attributes
-		// this adds the errorMessage text and the result to the response
-		//req.setAttribute("errorMessage", errorMessage);
-		
-		// Forward to view to render the result HTML document
-		if(req.getParameter("submitLoginData")!=null) {
-			ProfileServlet serv = new ProfileServlet();
-			serv.doGet(req, resp);
-		}
+	}
+	protected void doOpenProjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
+		req.getRequestDispatcher("/_view/projects.jsp").forward(req, resp);
+	}
+	protected void doOpenProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
+		req.getRequestDispatcher("/_view/profile.jsp").forward(req, resp);
+	}
+	protected void doOpenSearch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
+		req.getRequestDispatcher("/_view/search.jsp").forward(req, resp);
+	}
+	protected void doOpenHome(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
+		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 	}
 
 	

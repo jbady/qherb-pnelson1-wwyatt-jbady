@@ -3,9 +3,13 @@ package edu.ycp.cs320.entrelink.userdb.persist;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.model.User;
 
 public class FakeDatabaseTest {
@@ -13,7 +17,7 @@ public class FakeDatabaseTest {
 	private IDatabase db;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		user = new User();
 		db = new FakeDatabase();
 	}
@@ -91,5 +95,20 @@ public class FakeDatabaseTest {
 		assertEquals(user.getUserLastName(), null);
 		assertEquals(user.getUsername(), null);
 		
+	}
+	
+	@Test
+	public void testFindPostsByTags(){
+		ArrayList<String> tags = new ArrayList<String>();
+		tags.add("eggs");
+		tags.add("corn");
+		ArrayList<Post> postsWithTags = db.findPostsByTags(tags);
+		assertEquals(postsWithTags.get(0).getTitle(), "Corn Simulator");
+		
+		tags = new ArrayList<String>();
+		tags.add("arts");
+		postsWithTags = db.findPostsByTags(tags);
+		assertTrue(postsWithTags.get(0).getTitle().equals("Two-legged Chair") || postsWithTags.get(0).getTitle().equals("Cheese Grater Phone Case"));
+		assertTrue(postsWithTags.get(1).getTitle().equals("Two-legged Chair") || postsWithTags.get(1).getTitle().equals("Cheese Grater Phone Case"));
 	}
 }

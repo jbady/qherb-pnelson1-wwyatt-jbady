@@ -31,10 +31,47 @@
 			#searchBar{
 				
 			}
+			#userBar {
+				width: 100%;
+				background-color: green;
+				position: fixed;
+				top: 0;
+			}
+			#userBar h2 {
+				font-size: 16px;
+				font-weight: normal;
+				margin: 20px;
+				color: black;
+				display: block;
+				float: left;
+			}
+			input {
+				display: inline-block;
+				font-size 16px;
+				margin: 20px 0;
+				margin-right: 20px;
+				float: right;
+			}
 		</style>
 	</head>
 
 	<body>
+		<div id="userBar">
+			<h2>${loggedInName}</h2>
+			<form action="${pageContext.servletContext.contextPath}/projects" method="openProjects">
+				<input type="Submit" name="viewProjects" value="Projects">
+			</form>
+			<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
+				<input type="Submit" name="viewProjects" value="Profile">
+			</form>
+			<form action="${pageContext.servletContext.contextPath}/search" method="openSearch">
+				<input type="Submit" name="viewProjects" value="Search">
+			</form>
+			<form action="${pageContext.servletContext.contextPath}/index" method="openHome">
+				<input type="Submit" name="viewProjects" value="Home">
+			</form>
+		</div>
+	
 		<div id="Label">
 			<p>Search</p>
 		</div>

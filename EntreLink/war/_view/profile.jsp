@@ -82,8 +82,12 @@
 				This is where users will be able to edit their profiles when logged in.
 			</div>
 			<div id=buttons>
-				<input type="Submit" name="goToProjects" value="Projects">
-				<input type="Submit" name="goToMessaging" value="Messages">
+				<form action="${pageContext.servletContext.contextPath}/projects" method="get">
+					<input type="Submit" name="goToProjects" value="Projects">
+				</form>
+				<form action="${pageContext.servletContext.contextPath}/messages" method="get">
+					<input type="Submit" name="goToMessaging" value="Messages">
+				</form>
 			</div>
 		</div>	
 	</body>

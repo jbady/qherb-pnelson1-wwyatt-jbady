@@ -110,5 +110,10 @@ public class FakeDatabaseTest {
 		postsWithTags = db.findPostsByTags(tags);
 		assertTrue(postsWithTags.get(0).getTitle().equals("Two-legged Chair") || postsWithTags.get(0).getTitle().equals("Cheese Grater Phone Case"));
 		assertTrue(postsWithTags.get(1).getTitle().equals("Two-legged Chair") || postsWithTags.get(1).getTitle().equals("Cheese Grater Phone Case"));
+
+		tags = new ArrayList<String>();
+		tags.add("thisisarandomanddumbtag");
+		postsWithTags = db.findPostsByTags(tags);
+		assertTrue(postsWithTags.isEmpty());
 	}
 }

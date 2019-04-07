@@ -84,13 +84,17 @@ public class Post {
 		return tags;
 	}
 	public void addTags(ArrayList<String> tags) {
-		// TODO: add tags function
-		// Will take the new ArrayList and append it on to the old one
+		this.tags.addAll(tags);
 	}
 	
-	public void removeTags(ArrayList<int[]> index) {
-		// TODO: add remove tags function
-		// Takes in an ArrayList of integers, and will remove the ArrayList elements of selected indexes
+	public void removeTags(ArrayList<Integer> index) {
+		for(int i = 0; i < tags.size(); i++) {
+			for(int j = 0; j < index.size(); j++) {
+				if(i == j) {
+					tags.remove(i);
+				}
+			}
+		}
 	}
 	
 }

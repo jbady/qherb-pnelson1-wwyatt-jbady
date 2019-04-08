@@ -10,6 +10,7 @@ import java.util.ArrayList;
 //import java.util.Collections;
 import java.util.List;
 
+import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.model.User;
 
 public class DerbyDatabase implements IDatabase {
@@ -215,5 +216,35 @@ public class DerbyDatabase implements IDatabase {
 		db.loadInitialData();
 		
 		System.out.println("Success!");
+	}
+
+	@Override
+	public ArrayList<Post> findPostsByTags(ArrayList<String> tags) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addPostToPostList(Post post) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addMultiplePostsToPostList(ArrayList<Post> posts) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<Post> findPostsByTitle(String title) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Post> findPostsByUserName(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

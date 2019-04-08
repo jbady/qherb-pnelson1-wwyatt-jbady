@@ -80,7 +80,7 @@ public class FakeDatabase implements IDatabase {
 		ArrayList<Post> postsWithTitle = new ArrayList<Post>();
 		
 		for(int i = 0; i < postList.size(); i++) {
-			if(postList.get(i).getTitle().contains(title)) {
+			if(postList.get(i).getTitle().toLowerCase().contains(title.toLowerCase())) {
 				postsWithTitle.add(postList.get(i));
 			}
 		}
@@ -94,7 +94,7 @@ public class FakeDatabase implements IDatabase {
 		ArrayList<Post> postsWithUser = new ArrayList<Post>();
 		
 		for(int i = 0; i < postList.size(); i++) {
-			if(postList.get(i).getName().contains(name)) {
+			if(postList.get(i).getName().toLowerCase().contains(name.toLowerCase())) {
 				postsWithUser.add(postList.get(i));
 			}
 		}

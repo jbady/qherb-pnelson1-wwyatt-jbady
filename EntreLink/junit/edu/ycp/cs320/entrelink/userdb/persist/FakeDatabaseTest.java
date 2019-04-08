@@ -116,4 +116,90 @@ public class FakeDatabaseTest {
 		postsWithTags = db.findPostsByTags(tags);
 		assertTrue(postsWithTags.isEmpty());
 	}
+	
+	@Test
+	public void testFindPostsByTitle() {
+		ArrayList<Post> postsWithTitle;
+		String title;
+		
+		title = "Corn Simulator";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Corn Simulator");
+		
+		title = "Corn";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Corn Simulator");
+		
+		title = "Simulator";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Corn Simulator");
+		
+		title = "Two-legged Chair";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Two-legged Chair");
+		
+		title = "Two";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Two-legged Chair");
+		
+		title = "legged";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Two-legged Chair");
+		
+		title = "chair";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Two-legged Chair");
+		
+		title = "Cheese Grater Phone Case";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Cheese";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Grater";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Phone";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Case";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Phone Case";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Cheese Grater";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Cheese Grater Phone Case");
+		
+		title = "Lightbulb Analyzer";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Lightbulb Analyzer");
+		
+		title = "Lightbulb";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Lightbulb Analyzer");
+		
+		title = "Analyzer";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Lightbulb Analyzer");
+		
+		title = "Light";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Lightbulb Analyzer");
+		
+		title = "Bulb";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Lightbulb Analyzer");
+		
+		title = "Anal";
+		postsWithTitle = db.findPostsByTitle(title);
+		assertEquals(postsWithTitle.get(0).getTitle(), "Lightbulb Analyzer");
+	}
 }

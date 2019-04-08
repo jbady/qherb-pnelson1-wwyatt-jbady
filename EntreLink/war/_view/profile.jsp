@@ -10,10 +10,11 @@
 				font-family: sans-serif;
 				font-size: 32px;
 				text-align: center;
-				height: 80px
+				height: 80px;
 				border-style: solid;
 				border-color: white;
-				border-radius: 20px
+				border-radius: 20px;
+				margin-top: 100px;
 			}
 			#description {
 				margin: 20px auto;
@@ -79,7 +80,7 @@
 				
 			</div>
 			<div id="description">
-				This is where users will be able to edit their profiles when logged in.
+				This is ${loggedInName}'s profile.
 			</div>
 			<div id=buttons>
 				<form action="${pageContext.servletContext.contextPath}/projects" method="get">

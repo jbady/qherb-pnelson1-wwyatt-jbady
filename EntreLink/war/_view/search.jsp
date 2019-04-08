@@ -12,10 +12,11 @@
 				font-family: sans-serif;
 				font-size: 32px;
 				text-align: center;
-				height: 80px
+				height: 80px;
 				border-style: solid;
 				border-color: white;
-				border-radius: 20px
+				border-radius: 20px;
+				margin-top: 100px;
 			}
 			#description {
 				margin: 20px auto;

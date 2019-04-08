@@ -45,6 +45,8 @@ public class FakeDatabase implements IDatabase {
 		return result;
 	}
 	
+	// search for posts by tag by iterating through tags of existing posts
+	// and comparing to iterations through desired tags array list
 	public ArrayList<Post> findPostsByTags(ArrayList<String> tags){
 		
 		ArrayList<Post> postsContainingTags = new ArrayList<Post>();
@@ -59,9 +61,44 @@ public class FakeDatabase implements IDatabase {
 				}
 			}
 		}
-		
 		return postsContainingTags;
-		
 	}
 	
+	// the next two literally explain themselves
+	public void addPostToPostList(Post post) {
+		postList.add(post);
+	}
+	
+	public void addMultiplePostsToPostList(ArrayList<Post> posts) {
+		postList.addAll(posts);
+	}
+	
+	// find post by title, if an existing post contains the character sequence
+	// add it to an array list of posts and return it
+	public ArrayList<Post> findPostsByTitle(String title){
+		
+		ArrayList<Post> postsWithTitle = new ArrayList<Post>();
+		
+		for(int i = 0; i < postList.size(); i++) {
+			if(postList.get(i).getTitle().contains(title)) {
+				postsWithTitle.add(postList.get(i));
+			}
+		}
+		return postsWithTitle;
+	}
+	
+	// find post by user's name, if an existing post contains the character sequence
+	// within either the user's first name or last name, add it
+	public ArrayList<Post> findPostsByUserName(String name){
+		
+		ArrayList<Post> postsWithUser = new ArrayList<Post>();
+		
+		for(int i = 0; i < postList.size(); i++) {
+			if(postList.get(i).getName().contains(name)) {
+				postsWithUser.add(postList.get(i));
+			}
+		}
+		return postsWithUser;
+	}
+
 }

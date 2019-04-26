@@ -157,7 +157,7 @@ public class DerbyDatabase implements IDatabase {
 						"	firstname varchar(40)," +
 						"	lastname varchar(40)," +
 						"	email varchar(40)," +
-						"	userType varchar(10)," +
+						"	userType varchar(10)" +
 						")"
 					);	
 					stmt1.executeUpdate();

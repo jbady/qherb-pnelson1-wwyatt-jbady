@@ -2,6 +2,7 @@ package edu.ycp.cs320.entrelink.userdb.persist;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import edu.ycp.cs320.entrelink.model.Post;
@@ -11,7 +12,30 @@ import edu.ycp.cs320.entrelink.model.User;
 public class InitialData {
 	public static List<User> getUsers() throws IOException {
 		List<User> userList = new ArrayList<User>();
-		User newUser = new User("pnelson1", "toothbrush", "Patrick", "Nelson", "pnelson1@ycp.edu", "Admin");
+		ReadCSV readUsers = new ReadCSV("usersTable.csv");
+		try {
+			Integer userID = 1;
+			while(true) {
+				List<String> tuple = readUsers.next();
+				if(tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				User newUser = new User();
+				newUser.setUserId(userID++);
+				newUser.setUsername(i.next());
+				newUser.setUserFirstName(i.next());
+				newUser.setUserLastName(i.next());
+				newUser.setEmail(i.next());
+				newUser.setPassword(i.next());
+				newUser.setUserType(i.next());
+				userList.add(newUser);
+			}
+			return userList;
+		}finally {
+			readUsers.close();
+		}
+		/*User newUser = new User("pnelson1", "toothbrush", "Patrick", "Nelson", "pnelson1@ycp.edu", "Admin");
 		userList.add(newUser);
 		newUser = new User("jbady", "fingernail", "Jason", "Bady", "jbady@ycp.edu", "Admin");
 		userList.add(newUser);
@@ -23,7 +47,7 @@ public class InitialData {
 		userList.add(newUser);
 		newUser = new User("jdoe", "ILikeRocks", "John", "Doe", "jdoe@ycp.edu", "Student");
 		userList.add(newUser);
-		return userList;
+		return userList;*/
 	}
 	
 	public static List<Post> getPosts() throws IOException {

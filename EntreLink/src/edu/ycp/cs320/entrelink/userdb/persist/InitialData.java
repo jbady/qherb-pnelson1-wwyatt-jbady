@@ -12,6 +12,7 @@ import edu.ycp.cs320.entrelink.model.User;
 public class InitialData {
 	public static List<User> getUsers() throws IOException {
 		List<User> userList = new ArrayList<User>();
+		
 		ReadCSV readUsers = new ReadCSV("usersTable.csv");
 		try {
 			Integer userID = 1;
@@ -35,26 +36,36 @@ public class InitialData {
 		}finally {
 			readUsers.close();
 		}
-		/*User newUser = new User("pnelson1", "toothbrush", "Patrick", "Nelson", "pnelson1@ycp.edu", "Admin");
-		userList.add(newUser);
-		newUser = new User("jbady", "fingernail", "Jason", "Bady", "jbady@ycp.edu", "Admin");
-		userList.add(newUser);
-		newUser = new User("wwyatt", "RockSalt", "William", "Wyatt", "wwyatt@ycp.edu", "Admin");
-		userList.add(newUser);
-		newUser = new User("qherb", "3legs", "Quintin", "Herb", "qherb@ycp.edu", "Admin");
-		userList.add(newUser);
-		newUser = new User("djhake", "BDConsultant", "Professor", "Hake", "djhake@ycp.edu", "Business");
-		userList.add(newUser);
-		newUser = new User("jdoe", "ILikeRocks", "John", "Doe", "jdoe@ycp.edu", "Student");
-		userList.add(newUser);
-		return userList;*/
 	}
 	
 	public static List<Post> getPosts() throws IOException {
 		List<Post> postList = new ArrayList<Post>();
 		
-		ArrayList<String> tags = new ArrayList<String>();
-		tags.add("corn");
+		ReadCSV readPosts = new ReadCSV("postsTable.csv");
+		try {
+			Integer postID = 1;
+			while(true) {
+				List<String> tuple = readPosts.next();
+				if(tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Post newPost = new Post();
+				newPost.setPostId(postID++);
+				newPost.setPosterId(Integer.parseInt(i.next()));
+				newPost.setName(i.next(), "");
+				newPost.setTimePosted(Integer.parseInt(i.next()));
+				newPost.setTitle(i.next());
+				newPost.setDescription(i.next());
+				postList.add(newPost);
+			}
+			return postList;
+		}finally {
+			readPosts.close();
+		}
+		
+		//ArrayList<String> tags = new ArrayList<String>();
+		/*tags.add("corn");
 		tags.add("food");
 		tags.add("simulation");
 		tags.add("programming");
@@ -85,8 +96,6 @@ public class InitialData {
 		tags.add("3D printing");
 		user = new User("wwyatt", "RockSalt", "William", "Wyatt", "wwyatt@ycp.edu", "Admin");
 		newPost = new Post(user, 0625, "Cheese Grater Phone Case", "I would like the functionality of a cheese grater, but the portability of a smart phone.", tags);
-		postList.add(newPost);
-		
-		return postList;
+		postList.add(newPost);*/
 	}
 }

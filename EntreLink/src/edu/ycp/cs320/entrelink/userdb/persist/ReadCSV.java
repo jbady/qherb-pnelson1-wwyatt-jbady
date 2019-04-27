@@ -13,11 +13,12 @@ public class ReadCSV implements Closeable {
 	private BufferedReader reader;
 	
 	public ReadCSV(String resourceName) throws IOException {
-		InputStream in = this.getClass().getClassLoader().getResourceAsStream("edu/ycp/cs320/entrelink/persist/" + resourceName);
+		InputStream in = this.getClass().getClassLoader().getResourceAsStream("edu/ycp/cs320/entrelink/userdb/persist/res/" + resourceName);
 		if (in == null) {
 			throw new IOException("Couldn't open " + resourceName);
 		}
 		this.reader = new BufferedReader(new InputStreamReader(in));
+		
 	}
 	
 	public List<String> next() throws IOException {

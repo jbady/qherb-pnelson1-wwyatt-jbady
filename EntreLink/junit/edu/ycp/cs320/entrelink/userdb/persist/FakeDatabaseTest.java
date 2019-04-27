@@ -42,7 +42,7 @@ public class FakeDatabaseTest {
 		// Tests finding Quintin Herb by his e-mail
 		user = db.findUserByEmailOrUsername("qherb@ycp.edu");
 		assertEquals(user.getEmail(), "qherb@ycp.edu");
-		assertEquals(user.getPassword(), "3legs");
+		assertEquals(user.getPassword(), "3Legs");
 		assertEquals(user.getUserFirstName(), "Quintin");
 		assertEquals(user.getUserLastName(), "Herb");
 		assertEquals(user.getUsername(), "qherb");

@@ -101,4 +101,11 @@ public class FakeDatabase implements IDatabase {
 		return postsWithUser;
 	}
 
+	@Override
+	public User createNewUser(String username, String firstName, String lastName, String email, String password,
+			String userType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

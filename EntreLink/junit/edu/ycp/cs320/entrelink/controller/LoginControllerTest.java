@@ -147,10 +147,4 @@ public class LoginControllerTest {
 		controller.setModel(model);
 		assertFalse(controller.verifyUser());
 	}
-	
-	@Test
-	public void testThatOneIsEqualToOne() {
-		int i = 1;
-		assertTrue(i == 1);
-	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.ycp.cs320.entrelink.model.User;
 import edu.ycp.cs320.entrelink.userdb.persist.DatabaseProvider;
+import edu.ycp.cs320.entrelink.userdb.persist.DerbyDatabase;
 import edu.ycp.cs320.entrelink.userdb.persist.FakeDatabase;
 import edu.ycp.cs320.entrelink.userdb.persist.IDatabase;
 
@@ -16,7 +17,7 @@ public class LoginController {
 	}
 	
 	
-	IDatabase db = new FakeDatabase();
+	IDatabase db = new DerbyDatabase();
 	User getUser;
 	
 	public boolean verifyUser() {

@@ -12,6 +12,7 @@ import java.util.List;
 
 import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.model.User;
+import edu.ycp.cs320.sqldemo.DBUtil;
 
 public class DerbyDatabase implements IDatabase {
 	static {
@@ -246,5 +247,96 @@ public class DerbyDatabase implements IDatabase {
 	public ArrayList<Post> findPostsByUserName(String name) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public User createNewUser(String username, String firstName, String lastName, String email, String password,
+			String userType) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException{
+				User nUser = null;
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet1 = null;
+				ResultSet resultSet2 = null;
+				Integer user_id = null;
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement(
+							"select user_id "
+							+ " from users "
+							+ " where users.email = ? and authors.username = ? "
+					);
+					
+					stmt.setString(1, email);
+					stmt.setString(2, username);
+					
+					resultSet = stmt.executeQuery();
+					
+					if(resultSet.next()) {
+						user_id = resultSet.getInt(1);
+						System.out.println("That User exists in our database");
+						nUser = new User(username, password, firstName, lastName, email, userType);
+					}else {
+						System.out.println("user does not exist");
+						
+						PreparedStatement aStmt = null;
+						ResultSet aResultSet = null;
+						PreparedStatement aStmt1 = null;
+						ResultSet aResultSet1 = null;
+						
+						try {
+							
+							aStmt = conn.prepareStatement(
+									"insert into users(username, firstname, lastname, email, password, usertype) "
+									+ " values (?, ?, ?, ?, ?, ?) "
+									);
+							aStmt.setString(1, username);
+							aStmt.setString(2, firstName);
+							aStmt.setString(3, lastName);
+							aStmt.setString(4, email);
+							aStmt.setString(5, password);
+							aStmt.setString(6, userType);
+							
+							aStmt.execute();
+							
+							conn.setAutoCommit(true);
+							
+							aStmt1 = conn.prepareStatement(
+									"select user_id "
+									+ " from users "
+									+ " where username = ? and "
+									+ " email = ? "
+									);
+							aStmt1.setString(1, username);
+							aStmt1.setString(2, email);
+							
+							aResultSet1 = aStmt1.executeQuery();
+							
+							if(aResultSet1.next()) {
+								user_id = aResultSet1.getInt(1);
+								System.out.println("The user '"
+										+ " " + username + "' has been created");
+								nUser = new User(username, password, firstName, lastName, email, userType);
+							}
+					}finally {
+						DBUtil.closeQuietly(aResultSet);
+						DBUtil.closeQuietly(aStmt);
+						DBUtil.closeQuietly(aStmt1);
+					}
+				}
+			}finally {
+				// close result set, statement, connection
+				DBUtil.closeQuietly(resultSet);
+				DBUtil.closeQuietly(stmt);
+				}
+				return nUser;
+			}
+		});
 	}
 }

@@ -7,16 +7,18 @@
 <body>
 
 	<div id="navbar">
-		<c:if test="${empty loggedInName}">
-			<form action="${pageContext.servletContext.contextPath}/login" method="get">
-				<input type="Submit" name="submit" value="Log In" class="navLink">
-			</form>
-		</c:if>
-		<c:if test="${! empty loggedInName}">
-			<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
-				<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
-			</form>
-		</c:if>
+		<c:choose>
+			<c:when test="${empty loggedInName}">
+				<form action="${pageContext.servletContext.contextPath}/login" method="get">
+					<input type="Submit" name="submit" value="Log In" class="navLink">
+				</form>
+			</c:when>
+			<c:otherwise test="${! empty loggedInName}">
+				<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
+					<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+				</form>
+			</c:otherwise>
+		</c:choose>
 
 		<form action="${pageContext.servletContext.contextPath}/index" method="openHome">
 			<input type="Submit" name="viewIndex" value="Home" class="navLink">

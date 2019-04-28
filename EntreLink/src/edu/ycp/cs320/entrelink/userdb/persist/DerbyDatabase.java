@@ -220,7 +220,7 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// populate users table
-					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (User user : userList) {
 						insertUser.setString(1, user.getUsername());
 						insertUser.setString(2, user.getUserFirstName());
@@ -231,10 +231,10 @@ public class DerbyDatabase implements IDatabase {
 						insertUser.setString(7, user.getProfilePic());
 						insertUser.setString(8, user.getWebsite());
 						insertUser.setString(9, user.getBio());
-						insertUser.setString(9, user.getMajor());
-						insertUser.setString(9, user.getStatus());
-						insertUser.setString(9, user.getInterests());
-						insertUser.setString(9, user.getSkills());
+						insertUser.setString(10, user.getMajor());
+						insertUser.setString(11, user.getStatus());
+						insertUser.setString(12, user.getInterests());
+						insertUser.setString(13, user.getSkills());
 						insertUser.addBatch();
 					}
 					insertUser.executeBatch();

@@ -46,6 +46,7 @@ html, body {
 	min-height: 400px;
 	padding-top: 60px;
 	margin: 0 auto;
+	padding-bottom: 50px;
 }
 
 .content h2 {
@@ -79,11 +80,11 @@ html, body {
 	cursor: pointer;
 }
 
-.content table {
+.content #homeTable {
 	width: 100%;
 }
 
-.content table tr th {
+.content #homeTable tr th {
 	width: 50%;
 	box-sizing: border-box;
 	font-size: 30px;
@@ -91,7 +92,7 @@ html, body {
 	padding: 50px 0;
 }
 
-#loginForm{
+#loginForm {
 	margin: 50px auto;
 	background-color: #0b6623;
 	color: #fcfcfc;
@@ -104,4 +105,50 @@ html, body {
 .loginTextBox {
 	margin-bottom: 20px;
 	width: 100%;
+}
+
+#profileImg {
+	display: block;
+	margin: 50px auto;
+	width: 200px;
+	border-radius: 100%;
+}
+
+.content h3 {
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	font-family: sans-serif;
+	font-size: 30px;
+}
+
+#profileTable {
+	margin: 0 auto;
+	font-family: sans-serif;
+	font-size: 18px;
+}
+
+#profileTable tr td {
+	padding-top: 20px;
+	border-bottom: 2px dotted #999;
+}
+
+#profileTable tr .leftTable {
+	width: 100px;
+}
+
+#profileTable tr .rightTable {
+	width: 500px;
+	text-align: right;
+}
+
+#profileBio {
+	width: 600px;
+	font-family: sans-serif;
+	text-align: justify;
+	display: block;
+	margin: 10px auto;
+	line-height: 1.6;
+	font-size: 18px;
+	text-indent: 40px;
 }

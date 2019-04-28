@@ -83,10 +83,13 @@ public class DerbyDatabase implements IDatabase {
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
 		user.setUserId(resultSet.getInt(index++));
 		user.setUsername(resultSet.getString(index++));
-		user.setPassword(resultSet.getString(index++));
 		user.setUserFirstName(resultSet.getString(index++));
 		user.setUserLastName(resultSet.getString(index++));
 		user.setEmail(resultSet.getString(index++));
+		user.setPassword(resultSet.getString(index++));
+		user.setUserType(resultSet.getString(index++));
+		user.setProfilePic(resultSet.getString(index++));
+		user.setBio(resultSet.getString(index++));
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -154,11 +157,14 @@ public class DerbyDatabase implements IDatabase {
 						"	user_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +									
 						"	username varchar(40)," +
-						"	password varchar(40)," +
 						"	firstname varchar(40)," +
 						"	lastname varchar(40)," +
 						"	email varchar(40)," +
-						"	userType varchar(10)" +
+						"	password varchar(40)," +
+						"	userType varchar(10)," +
+						"	userPic varchar(585)," +
+						"	userSite varchar(585)," +
+						"	userBio varchar(500) " +
 						")"
 					);	
 					stmt1.executeUpdate();
@@ -187,14 +193,17 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// populate users table
-					insertUser = conn.prepareStatement("insert into users (username, password, firstname, lastname, email, userType) values (?, ?, ?, ?, ?, ?)");
+					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (User user : userList) {
 						insertUser.setString(1, user.getUsername());
-						insertUser.setString(2, user.getPassword());
-						insertUser.setString(3, user.getUserFirstName());
-						insertUser.setString(4, user.getUserLastName());
-						insertUser.setString(5, user.getEmail());
+						insertUser.setString(2, user.getUserFirstName());
+						insertUser.setString(3, user.getUserLastName());
+						insertUser.setString(4, user.getEmail());
+						insertUser.setString(5, user.getPassword());
 						insertUser.setString(6, user.getUserType());
+						insertUser.setString(7, user.getProfilePic());
+						insertUser.setString(8, user.getWebsite());
+						insertUser.setString(9, user.getBio());
 						insertUser.addBatch();
 					}
 					insertUser.executeBatch();

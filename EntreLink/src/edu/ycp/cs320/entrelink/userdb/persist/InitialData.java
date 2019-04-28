@@ -30,6 +30,9 @@ public class InitialData {
 				newUser.setEmail(i.next());
 				newUser.setPassword(i.next());
 				newUser.setUserType(i.next());
+				newUser.setProfilePic(i.next());
+				newUser.setWebsite(i.next());
+				newUser.setBio(i.next());
 				userList.add(newUser);
 			}
 			return userList;

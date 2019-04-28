@@ -9,18 +9,14 @@ public class User {
 	private String userFirstName;
 	private String userLastName;
 	private String email;
-	boolean isLoggedIn;
 	private int userId;
 	private String profilePic;
 	private String website;
 	private String bio;
 	private String userType;
-	private ArrayList<Message> messages;
-	
-	
+	private ArrayList<Message> messages;	
 	
 	public User() {
-		isLoggedIn = false;
 	}
 	
 	public User(String username, String password, String userFirstName, String userLastName, String email, String userType) {
@@ -30,6 +26,7 @@ public class User {
 		this.userLastName = userLastName;
 		this.email = email;
 		this.userType = userType;
+		profilePic = "https://imgur.com/a/HmmZUYX";
 		messages = new ArrayList<Message>();
 	}
 	
@@ -127,13 +124,5 @@ public class User {
 	
 	public String getEmail(){
 		return this.email;
-	}
-	
-	public void setIsLoggedIn(boolean getBool) {
-		this.isLoggedIn = getBool;
-	}
-	
-	public boolean getIsLoggedIn() {
-		return this.isLoggedIn;
 	}
 }

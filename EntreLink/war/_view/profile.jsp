@@ -75,7 +75,7 @@
 		<form action="${pageContext.servletContext.contextPath}/profile" method="post">
 		<div id="content">
 			<div id="Label">
-				<img id="userPic" src="IMG_1039.JPG">
+				<img id="userPic" src="${loggedInImg}" style="border-radius: 100%;width: 100px;">
 				<p>Profile</p>
 				
 			</div>

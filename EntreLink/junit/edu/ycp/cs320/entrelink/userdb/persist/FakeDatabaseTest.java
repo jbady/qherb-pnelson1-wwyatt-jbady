@@ -34,7 +34,7 @@ public class FakeDatabaseTest {
 		// Tests finding Patrick Nelson by his username
 		user = db.findUserByEmailOrUsername("pnelson1");
 		assertEquals(user.getEmail(), "pnelson1@ycp.edu");
-		assertEquals(user.getPassword(), "toothbrush");
+		assertEquals(user.getPassword(), "##");
 		assertEquals(user.getUserFirstName(), "Patrick");
 		assertEquals(user.getUserLastName(), "Nelson");
 		assertEquals(user.getUsername(), "pnelson1");
@@ -42,7 +42,7 @@ public class FakeDatabaseTest {
 		// Tests finding Quintin Herb by his e-mail
 		user = db.findUserByEmailOrUsername("qherb@ycp.edu");
 		assertEquals(user.getEmail(), "qherb@ycp.edu");
-		assertEquals(user.getPassword(), "3Legs");
+		assertEquals(user.getPassword(), "####");
 		assertEquals(user.getUserFirstName(), "Quintin");
 		assertEquals(user.getUserLastName(), "Herb");
 		assertEquals(user.getUsername(), "qherb");
@@ -50,7 +50,7 @@ public class FakeDatabaseTest {
 		// Tests finding Professor Hake by his username
 		user = db.findUserByEmailOrUsername("djhake");
 		assertEquals(user.getEmail(), "djhake@ycp.edu");
-		assertEquals(user.getPassword(), "BDConsultant");
+		assertEquals(user.getPassword(), "#####");
 		assertEquals(user.getUserFirstName(), "Professor");
 		assertEquals(user.getUserLastName(), "Hake");
 		assertEquals(user.getUsername(), "djhake");

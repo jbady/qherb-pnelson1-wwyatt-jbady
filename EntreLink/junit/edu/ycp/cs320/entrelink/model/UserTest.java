@@ -93,17 +93,4 @@ public class UserTest {
 		assertEquals("wwyatt@ycp.edu", model.getEmail());
 	}
 	
-	@Test
-	public void testSetGetIsLoggedIn() {
-		assertFalse(model.getIsLoggedIn());
-		
-		model.setIsLoggedIn(true);
-		
-		assertTrue(model.getIsLoggedIn());
-		
-		model.setIsLoggedIn(false);
-		
-		assertFalse(model.getIsLoggedIn());
-	}
-	
 }

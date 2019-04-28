@@ -45,7 +45,7 @@
 		</form>
 
 		<h2>Recent Listings</h2>
-		<table>
+		<table id="homeTable">
 			<tr>
 				<th>Student Posts</th>
 				<th>Business Posts</th>

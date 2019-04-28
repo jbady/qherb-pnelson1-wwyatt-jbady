@@ -3,7 +3,7 @@
 <html>
 <head>
 	<title>EntreLink - New Post</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="_view/css/style.css">
 </head>
 <body>
 
@@ -16,7 +16,10 @@
 			</c:when>
 			<c:otherwise>
 				<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
-					<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+					<div class="navLink" style="padding:0;">
+						<img id="userPic" src="${loggedInImg}" style="border-radius: 100%;width: 40px;display: inline-block;float: left;margin-top:14px;margin-left:10px;">
+						<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+					</div>
 				</form>
 			</c:otherwise>
 		</c:choose>
@@ -75,7 +78,7 @@
 					<input type="Submit" name="submit" value="Log In" style="display: block; margin: 10px auto;">
 				</form>
 			</c:otherwise>
-		<c:choose>
+		</c:choose>
 	</div>
 
 

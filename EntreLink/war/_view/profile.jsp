@@ -14,9 +14,12 @@
 					<input type="Submit" name="submit" value="Log In" class="navLink">
 				</form>
 			</c:when>
-			<c:otherwise test="${! empty loggedInName}">
+			<c:otherwise>
 				<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
-					<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+					<div class="navLink" style="padding:0;">
+						<img id="userPic" src="${loggedInImg}" style="border-radius: 100%;width: 40px;display: inline-block;float: left;margin-top:14px;margin-left:10px;">
+						<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+					</div>
 				</form>
 			</c:otherwise>
 		</c:choose>
@@ -35,7 +38,7 @@
 
 	<div class="content">
 		<h2>My Profile</h2>
-		<img src="https://i.imgur.com/46FYTE7.png" id="profileImg">
+		<img src="${loggedInImg}" id="profileImg">
 		<h3>${loggedInName}</h3>
 		<p id="profileBio">I am really great programmer my favorite programing language is html and also css and also I like to cry myself to sleep because I think I am very very funny but I am actually dead inside!</p>
 		<table id="profileTable">

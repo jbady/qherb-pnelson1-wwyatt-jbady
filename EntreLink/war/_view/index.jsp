@@ -17,8 +17,10 @@
 			</c:when>
 			<c:otherwise>
 				<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
-				<img id="userPic" src="${loggedInImg}" style="border-radius: 100%;width: 40px;display: inline-block;float: left;margin-top:10px;margin-left:10px;">
-					<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+					<div class="navLink" style="padding:0;">
+						<img id="userPic" src="${loggedInImg}" style="border-radius: 100%;width: 40px;display: inline-block;float: left;margin-top:14px;margin-left:10px;">
+						<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
+					</div>
 				</form>
 			</c:otherwise>
 		</c:choose>

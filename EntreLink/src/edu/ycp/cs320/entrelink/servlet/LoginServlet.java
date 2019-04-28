@@ -65,6 +65,7 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session=req.getSession(); 
 				session.setAttribute("loggedInName", controller.getModel().getUserFirstName() + " " + controller.getModel().getUserLastName());
 				session.setAttribute("loggedInImg", controller.getModel().getProfilePic());
+				session.setAttribute("loggedInBio", controller.getModel().getBio());
 		        req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 			}
 		

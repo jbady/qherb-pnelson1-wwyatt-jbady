@@ -3,7 +3,7 @@
 <html>
 <head>
 	<title>EntreLink - My Profile</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="_view/css/style.css">
 </head>
 <body>
 

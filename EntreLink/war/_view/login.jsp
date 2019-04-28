@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=utf8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +17,7 @@
 			</c:when>
 			<c:otherwise>
 				<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
+				<img id="userPic" src="${loggedInImg}" style="border-radius: 100%;width: 40px;display: inline-block;float: left;margin-top:10px;margin-left:10px;">
 					<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
 				</form>
 			</c:otherwise>

@@ -95,6 +95,15 @@ public class DerbyDatabase implements IDatabase {
 		user.setInterests(resultSet.getString(index++));
 		user.setSkills(resultSet.getString(index++));
 	}
+	private void loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
+		post.setPostId(resultSet.getInt(index++));
+		post.setPosterId(resultSet.getInt(index++));
+		String [] name = resultSet.getString(index++).split(" ");
+		post.setName(name[0], name[1]);
+		post.setTimePosted(resultSet.getInt(index++));
+		post.setTitle(resultSet.getString(index++));
+		post.setDescription(resultSet.getString(index++));
+	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
 		try {
@@ -294,7 +303,32 @@ public class DerbyDatabase implements IDatabase {
 	@Override
 	public ArrayList<Post> findPostsByTitle(String title) {
 		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<ArrayList<Post>>() {
+			@Override
+			public ArrayList<Post> execute(Connection conn) throws SQLException {
+				ArrayList<Post> posts = new ArrayList<Post>();
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;							
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement("select * from posts where title like '%' || ? || '%'");
+					stmt.setString(1, title);
+					
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()) {
+							Post nPost = new Post();
+							loadPost(nPost, resultSet, 1);
+							posts.add(nPost);
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return posts;
+			}
+		});
 	}
 
 	@Override

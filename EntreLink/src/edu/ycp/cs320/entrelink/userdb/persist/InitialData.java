@@ -33,6 +33,10 @@ public class InitialData {
 				newUser.setProfilePic(i.next());
 				newUser.setWebsite(i.next());
 				newUser.setBio(i.next());
+				newUser.setMajor(i.next());
+				newUser.setStatus(i.next());
+				newUser.setInterests(i.next());
+				newUser.setSkills(i.next());
 				userList.add(newUser);
 			}
 			return userList;

@@ -7,6 +7,7 @@ html, body {
 	width: 100%;
 	background-color: #0b6623;
 	position: fixed;
+	z-index: 300;
 }
 
 .navLink {
@@ -199,5 +200,42 @@ html, body {
 	z-index: 1;
 }
 
+
+#newPostTable {
+	margin: 0 auto;
+	font-family: sans-serif;
+	font-size: 18px;
+	position: relative;
+}
+
+#newPostTable tr td {
+	padding-top: 20px;
+	vertical-align: top;
+}
+
+#newPostTable tr .leftTable {
+	width: 200px;
+}
+
+#newPostTable tr .rightTable {
+	width: 400px;
+	text-align: right;
+}
+
+#newPostTitle, #newPostTags {
+	float: right;
+	width: 400px;
+	font-size: 12px;
+}
+
+#newPostDescription {
+	float: right;
+	width: 400px;
+	height: 100px;
+	word-break: break-all;
+	resize: vertical;
+	font-family: sans-serif;
+	font-size: 12px;
+}
 
 

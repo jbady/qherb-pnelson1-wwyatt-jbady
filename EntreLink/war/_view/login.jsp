@@ -13,7 +13,7 @@
 					<input type="Submit" name="submit" value="Log In" class="navLink">
 				</form>
 			</c:when>
-			<c:otherwise test="${! empty loggedInName}">
+			<c:otherwise>
 				<form action="${pageContext.servletContext.contextPath}/profile" method="openProfile">
 					<input type="Submit" name="submit" value="${loggedInName}" class="navLink">
 				</form>

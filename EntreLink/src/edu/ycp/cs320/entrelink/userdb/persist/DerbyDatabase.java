@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 //import java.util.Collections;
 import java.util.List;
-
 import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.model.User;
 import edu.ycp.cs320.sqldemo.DBUtil;
@@ -220,7 +219,9 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// populate users table
-					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, "
+							+ " userType, userPic, userSite, userBio) "
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (User user : userList) {
 						insertUser.setString(1, user.getUsername());
 						insertUser.setString(2, user.getUserFirstName());
@@ -231,16 +232,17 @@ public class DerbyDatabase implements IDatabase {
 						insertUser.setString(7, user.getProfilePic());
 						insertUser.setString(8, user.getWebsite());
 						insertUser.setString(9, user.getBio());
-						insertUser.setString(9, user.getMajor());
-						insertUser.setString(9, user.getStatus());
-						insertUser.setString(9, user.getInterests());
-						insertUser.setString(9, user.getSkills());
+						insertUser.setString(10, user.getMajor());
+						insertUser.setString(11, user.getStatus());
+						insertUser.setString(12, user.getInterests());
+						insertUser.setString(13, user.getSkills());
 						insertUser.addBatch();
 					}
 					insertUser.executeBatch();
 					
 					// populate posts table
-					insertPost = conn.prepareStatement("insert into posts (poster_id, name, timePosted, title, description) values (?, ?, ?, ?, ?)");
+					insertPost = conn.prepareStatement("insert into posts (poster_id, name, timePosted, title, description) "
+							+ " values (?, ?, ?, ?, ?)");
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
 						insertPost.setString(2, post.getName());
@@ -303,91 +305,61 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public User createNewUser(String username, String firstName, String lastName, String email, String password,
-			String userType) {
+	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
+			String userType, String bio, String major, String status, String interest, String skills) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<User>() {
 			@Override
-			public User execute(Connection conn) throws SQLException{
+			public User execute(Connection conn) throws SQLException {
 				User nUser = null;
 				PreparedStatement stmt = null;
-				ResultSet resultSet = null;
-				ResultSet resultSet1 = null;
-				ResultSet resultSet2 = null;
-				Integer user_id = null;
 				PreparedStatement stmt1 = null;
-				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;							
 				try {
 					conn.setAutoCommit(true);
 					
 					stmt = conn.prepareStatement(
-							"select user_id "
-							+ " from users "
-							+ " where users.email = ? and authors.username = ? "
-					);
+							"insert into users (username, password, userFirstName,"
+							+ " userLastName, email, userType, bio, major, status, interest, skills)"
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+							);
+							
+					stmt.setString(1, username);
+					stmt.setString(2, password);
+					stmt.setString(3, userFirstName);
+					stmt.setString(4, userLastName);
+					stmt.setString(5, email);
+					stmt.setString(6, userType);
+					stmt.setString(7, bio);
+					stmt.setString(8, major);
+					stmt.setString(9, status);
+					stmt.setString(10, interest);
+					stmt.setString(11, skills);
 					
-					stmt.setString(1, email);
-					stmt.setString(2, username);
+					stmt.executeQuery();
 					
-					resultSet = stmt.executeQuery();
+					stmt1 = conn.prepareStatement(
+							"select * from users "
+							+ "where username = ? and email = ? and password = ?"
+							);
+					stmt1.setString(1, username);
+					stmt1.setString(2, email);
+					stmt1.setString(3, password);
 					
+					resultSet = stmt1.executeQuery();
+
 					if(resultSet.next()) {
-						user_id = resultSet.getInt(1);
-						System.out.println("That User exists in our database");
-						nUser = new User(username, password, firstName, lastName, email, userType);
-					}else {
-						System.out.println("user does not exist");
-						
-						PreparedStatement aStmt = null;
-						ResultSet aResultSet = null;
-						PreparedStatement aStmt1 = null;
-						ResultSet aResultSet1 = null;
-						
-						try {
-							
-							aStmt = conn.prepareStatement(
-									"insert into users(username, firstname, lastname, email, password, usertype) "
-									+ " values (?, ?, ?, ?, ?, ?) "
-									);
-							aStmt.setString(1, username);
-							aStmt.setString(2, firstName);
-							aStmt.setString(3, lastName);
-							aStmt.setString(4, email);
-							aStmt.setString(5, password);
-							aStmt.setString(6, userType);
-							
-							aStmt.execute();
-							
-							conn.setAutoCommit(true);
-							
-							aStmt1 = conn.prepareStatement(
-									"select user_id "
-									+ " from users "
-									+ " where username = ? and "
-									+ " email = ? "
-									);
-							aStmt1.setString(1, username);
-							aStmt1.setString(2, email);
-							
-							aResultSet1 = aStmt1.executeQuery();
-							
-							if(aResultSet1.next()) {
-								user_id = aResultSet1.getInt(1);
-								System.out.println("The user '"
-										+ " " + username + "' has been created");
-								nUser = new User(username, password, firstName, lastName, email, userType);
-							}
-					}finally {
-						DBUtil.closeQuietly(aResultSet);
-						DBUtil.closeQuietly(aStmt);
-						DBUtil.closeQuietly(aStmt1);
+						System.out.println("user has been created");
+						nUser = new User(username, password, userFirstName, userLastName, email, 
+								userType, bio, major, status, interest, skills);
 					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
 				}
-			}finally {
-				// close result set, statement, connection
-				DBUtil.closeQuietly(resultSet);
-				DBUtil.closeQuietly(stmt);
-				}
+				
+				
 				return nUser;
 			}
 		});

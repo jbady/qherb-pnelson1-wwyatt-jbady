@@ -15,13 +15,20 @@ public class UserController {
 	IDatabase db = new DerbyDatabase();
 	User newUser;
 	
-	public User createNewUser(String username, String firstName, String lastName, String email, String password, String userType) {
-		if(model!=null) {
-			newUser = db.createNewUser(username, firstName, lastName, email, password, userType);
+	public User createNewUser(String username, String password, String userFirstName, String userLastName, String email,
+			String userType, String bio, String major, String status, String interest, String skills) {
+		
+			System.out.print("user '" + username + "' is being inserted");
+			
+			newUser = db.insertNewUser(username, password, userFirstName, userLastName, email, userType, bio, major, status, interest, skills);
 			if(newUser.getEmail()!= null) {
 				model = newUser;
+				System.out.print("user '" + username + "' has been inputed");
+				
+			}else {
+				System.out.println("user hasn't been inserted");
 			}
-		}
+		
 		return newUser;
 	}
 	

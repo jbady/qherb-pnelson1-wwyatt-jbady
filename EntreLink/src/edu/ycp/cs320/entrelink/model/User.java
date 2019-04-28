@@ -23,13 +23,19 @@ public class User {
 	public User() {
 	}
 	
-	public User(String username, String password, String userFirstName, String userLastName, String email, String userType) {
+	public User(String username, String password, String userFirstName, String userLastName, String email,
+			String userType,	String bio, String major, String status, String interest, String skills) {
 		this.username = username;
 		this.password = password;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.email = email;
 		this.userType = userType;
+		this.bio = bio;
+		this.major = major;
+		this.status = status;
+		this.interests = interest;
+		this.skills = skills;
 		profilePic = "https://imgur.com/a/HmmZUYX";
 		messages = new ArrayList<Message>();
 	}

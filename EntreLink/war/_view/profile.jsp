@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>EntreLink - Projects</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>EntreLink - My Profile</title>
+	<link rel="stylesheet" type="text/css" href="_view/css/style.css">
 </head>
 <body>
 
@@ -37,31 +37,29 @@
 	</div>
 
 	<div class="content">
-		<h2>Projects</h2>
-		<div id="filterProjects">
-			Filter by:&emsp;
-			<select>
-				<option>All Listings</option>
-				<option>Business Proposals</option>
-				<option>Student Proposals</option>
-				<option>Student Skills</option>
-			</select>
-		</div>
+		<h2>My Profile</h2>
+		<img src="${loggedInImg}" id="profileImg">
+		<h3>${loggedInName}</h3>
+		<p id="profileBio">${loggedInBio}</p>
+		<table id="profileTable">
+			<tr>
+				<td class="leftTable">Major: </td>
+				<td class="rightTable">${loggedInMajor}</td>
+			</tr>
+			<tr>
+				<td class="leftTable">Status: </td>
+				<td class="rightTable">${loggedInStatus}</td>
+			</tr>
+			<tr>
+				<td class="leftTable">Interests: </td>
+				<td class="rightTable">${loggedInInterests}</td>
+			</tr>
+			<tr>
+				<td class="leftTable">Skills: </td>
+				<td class="rightTable">${loggedInSkills}</td>
+			</tr>
 
-		<div class="listingPost">
-			<h3 class="projectTitle">Corn Scanner<span class="projectPosted">posted on April 28, 2019 at 1:11pm</span></h3>
-			<div class="hideOverflow">
-				<p class="projectDescription">I'm looking to develop an app where the user may scan a farmer's entire field and count exactly how many kernels of corn there are on the given plot.  I will use this information to assure the destruction of the world economy via corn.  Corn would also be a fantastic fuel source in addition to being fun to eat, thus the demand will skyrocket.  At this point I am just filling in random stuff to get this to overflow.  One more line should do it, please be patient I am trying my best.</p>
-			</div>
-			<a href="#">Read More</a>
-		</div>
-		<div class="listingPost">
-			<h3 class="projectTitle">Poop Logger<span class="projectPosted">posted on April 28, 2019 at 8:15am</span></h3>
-			<div class="hideOverflow">
-				<p class="projectDescription">A device that attaches to the toilet and scans your poop.  This will connect to an app where you can view your high scores, compete with friends, and ensure your colon is healthy.</p>
-			</div>
-			<a href="#">Read More</a>
-		</div>
+		</table>
 	</div>
 
 

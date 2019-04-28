@@ -37,7 +37,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				
 				try {
-					// retrieve all attributes from both Books and Authors tables
+					// retrieve all attributes from Users table
 					stmt = conn.prepareStatement(
 							"select users.* " +
 							"  from users " +
@@ -65,7 +65,7 @@ public class DerbyDatabase implements IDatabase {
 						result = user;
 					}
 					
-					// check if the title was found
+					// check if the User was found
 					if (!found) {
 						System.out.println("<" + username + "> was not found in the users table");
 					}
@@ -219,9 +219,8 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// populate users table
-					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, "
-							+ " userType, userPic, userSite, userBio) "
-							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio, userMajor, userStatus, userInterests, userSkills) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (User user : userList) {
 						insertUser.setString(1, user.getUsername());
 						insertUser.setString(2, user.getUserFirstName());
@@ -318,26 +317,25 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					conn.setAutoCommit(true);
 					
-					stmt = conn.prepareStatement(
-							"insert into users (username, password, userFirstName,"
-							+ " userLastName, email, userType, bio, major, status, interest, skills)"
-							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-							);
+					stmt = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio, userMajor, userStatus, userInterests, userSkills) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 							
 					stmt.setString(1, username);
-					stmt.setString(2, password);
-					stmt.setString(3, userFirstName);
-					stmt.setString(4, userLastName);
-					stmt.setString(5, email);
+					stmt.setString(2, userFirstName);
+					stmt.setString(3, userLastName);
+					stmt.setString(4, email);
+					stmt.setString(5, password);
 					stmt.setString(6, userType);
-					stmt.setString(7, bio);
-					stmt.setString(8, major);
-					stmt.setString(9, status);
-					stmt.setString(10, interest);
-					stmt.setString(11, skills);
+					stmt.setString(7, "N/A");
+					stmt.setString(8, "N/A");
+					stmt.setString(9, bio);
+					stmt.setString(10, major);
+					stmt.setString(11, status);
+					stmt.setString(12, interest);
+					stmt.setString(13, skills);
 					
-					stmt.executeQuery();
+					stmt.execute();
 					
+					conn.setAutoCommit(true);
 					stmt1 = conn.prepareStatement(
 							"select * from users "
 							+ "where username = ? and email = ? and password = ?"
@@ -348,7 +346,7 @@ public class DerbyDatabase implements IDatabase {
 					
 					resultSet = stmt1.executeQuery();
 
-					if(resultSet.next()) {
+					if(resultSet.next()==true) {
 						System.out.println("user has been created");
 						nUser = new User(username, password, userFirstName, userLastName, email, 
 								userType, bio, major, status, interest, skills);

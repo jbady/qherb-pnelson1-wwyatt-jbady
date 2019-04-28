@@ -40,23 +40,23 @@
 		<h2>My Profile</h2>
 		<img src="${loggedInImg}" id="profileImg">
 		<h3>${loggedInName}</h3>
-		<p id="profileBio">I am really great programmer my favorite programing language is html and also css and also I like to cry myself to sleep because I think I am very very funny but I am actually dead inside!</p>
+		<p id="profileBio">${loggedInBio}</p>
 		<table id="profileTable">
 			<tr>
 				<td class="leftTable">Major: </td>
-				<td class="rightTable">Computer Science</td>
+				<td class="rightTable">${loggedInMajor}</td>
 			</tr>
 			<tr>
 				<td class="leftTable">Status: </td>
-				<td class="rightTable">Seeking Work</td>
+				<td class="rightTable">${loggedInStatus}</td>
 			</tr>
 			<tr>
 				<td class="leftTable">Interests: </td>
-				<td class="rightTable">Web Development, Artificial Intelligence, Eggs</td>
+				<td class="rightTable">${loggedInInterests}</td>
 			</tr>
 			<tr>
 				<td class="leftTable">Skills: </td>
-				<td class="rightTable">HTML, CSS, JavaScript, Java, C/C++, C#, QBasic, SmallBasic, Marketing, Singing, Frying Eggs</td>
+				<td class="rightTable">${loggedInSkills}</td>
 			</tr>
 
 		</table>

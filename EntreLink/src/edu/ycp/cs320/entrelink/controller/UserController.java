@@ -12,7 +12,7 @@ public class UserController {
 		this.model = model;
 	}
 	
-	IDatabase db = new DerbyDatabase();
+	DerbyDatabase db = new DerbyDatabase();
 	User newUser;
 	
 	public User createNewUser(String username, String password, String userFirstName, String userLastName, String email,

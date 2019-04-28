@@ -7,6 +7,7 @@ html, body {
 	width: 100%;
 	background-color: #0b6623;
 	position: fixed;
+	z-index: 300;
 }
 
 .navLink {
@@ -152,3 +153,89 @@ html, body {
 	font-size: 18px;
 	text-indent: 40px;
 }
+
+#filterProjects {
+	width: 600px;
+	margin: 10px auto;
+	margin-bottom: 50px;
+	display: block;
+	text-align: left;
+}
+
+.listingPost {
+	width: 600px;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 100px;
+}
+
+.listingPost a {
+	text-align: center;
+	width: 100%;
+	display: block;
+}
+
+.listingPost h3 {
+	text-align: left;
+	font-size: 22px;
+	width: 100%;
+	display: block;
+}
+
+.projectPosted {
+	margin-left: 20px;
+	font-size: 10px;
+	font-style: italic;
+	color: #aaaaaa;
+	text-align: right;
+}
+
+.projectDescription {
+	font-size: 16px;
+	margin: 0;
+	width: 100%;
+	max-height: 58px;
+	overflow: hidden;
+	text-align: justify;
+	z-index: 1;
+}
+
+
+#newPostTable {
+	margin: 0 auto;
+	font-family: sans-serif;
+	font-size: 18px;
+	position: relative;
+}
+
+#newPostTable tr td {
+	padding-top: 20px;
+	vertical-align: top;
+}
+
+#newPostTable tr .leftTable {
+	width: 200px;
+}
+
+#newPostTable tr .rightTable {
+	width: 400px;
+	text-align: right;
+}
+
+#newPostTitle, #newPostTags {
+	float: right;
+	width: 400px;
+	font-size: 12px;
+}
+
+#newPostDescription {
+	float: right;
+	width: 400px;
+	height: 100px;
+	word-break: break-all;
+	resize: vertical;
+	font-family: sans-serif;
+	font-size: 12px;
+}
+
+

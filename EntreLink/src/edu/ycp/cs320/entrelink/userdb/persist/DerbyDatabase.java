@@ -220,7 +220,7 @@ public class DerbyDatabase implements IDatabase {
 
 				try {
 					// populate users table
-					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					insertUser = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio, userMajor, userStatus, userInterests, userSkills) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 					for (User user : userList) {
 						insertUser.setString(1, user.getUsername());
 						insertUser.setString(2, user.getUserFirstName());

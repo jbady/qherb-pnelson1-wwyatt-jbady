@@ -14,6 +14,10 @@ public class User {
 	private String website;
 	private String bio;
 	private String userType;
+	private String major;
+	private String status;
+	private String interests;
+	private String skills;
 	private ArrayList<Message> messages;	
 	
 	public User() {
@@ -124,5 +128,37 @@ public class User {
 	
 	public String getEmail(){
 		return this.email;
+	}
+	
+	public void setMajor(String major) {
+		this.major = major;
+	}
+	
+	public String getMajor() {
+		return this.major;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setInterests(String interests) {
+		this.interests = interests;
+	}
+	
+	public String getInterests() {
+		return interests;
+	}
+	
+	public void setSkills(String skills) {
+		this.skills = skills;
+	}
+	
+	public String getSkills() {
+		return skills;
 	}
 }

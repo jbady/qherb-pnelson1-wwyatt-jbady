@@ -150,6 +150,7 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
 				
 				try {
 					stmt1 = conn.prepareStatement(
@@ -169,9 +170,23 @@ public class DerbyDatabase implements IDatabase {
 					);	
 					stmt1.executeUpdate();
 					
+					stmt2 = conn.prepareStatement(
+						"create table posts (" +
+						"	post_id integer primary key " +
+						"		generated always as identity (start with 1, increment by 1), " +
+						"	poster_id varchar(4)," +
+						"	name varchar(40)," +
+						"	timePosted varchar(10)," +
+						"	title varchar(50)," +
+						"	description varchar(1000)" +
+						")"
+					);
+					stmt2.executeUpdate();
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt2);
 				}
 			}
 		});
@@ -182,14 +197,17 @@ public class DerbyDatabase implements IDatabase {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				List<User> userList;
+				List<Post> postList;
 				
 				try {
 					userList = InitialData.getUsers();
+					postList = InitialData.getPosts();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
 				PreparedStatement insertUser   = null;
+				PreparedStatement insertPost   = null;
 
 				try {
 					// populate users table
@@ -207,10 +225,23 @@ public class DerbyDatabase implements IDatabase {
 						insertUser.addBatch();
 					}
 					insertUser.executeBatch();
+					
+					// populate posts table
+					insertPost = conn.prepareStatement("insert into posts (poster_id, name, timePosted, title, description) values (?, ?, ?, ?, ?)");
+					for (Post post : postList) {
+						insertPost.setInt(1, post.getPosterId());
+						insertPost.setString(2, post.getName());
+						insertPost.setInt(3, post.getTimePosted());
+						insertPost.setString(4, post.getTitle());
+						insertPost.setString(5, post.getDescription());
+						insertPost.addBatch();
+					}
+					insertPost.executeBatch();
 
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertUser);
+					DBUtil.closeQuietly(insertPost);
 				}
 			}
 		});

@@ -38,7 +38,7 @@ public class DerbyDatabase implements IDatabase {
 				ResultSet resultSet = null;
 				
 				try {
-					// retrieve all attributes from both Books and Authors tables
+					// retrieve all attributes from Users table
 					stmt = conn.prepareStatement(
 							"select users.* " +
 							"  from users " +
@@ -66,7 +66,7 @@ public class DerbyDatabase implements IDatabase {
 						result = user;
 					}
 					
-					// check if the title was found
+					// check if the User was found
 					if (!found) {
 						System.out.println("<" + username + "> was not found in the users table");
 					}

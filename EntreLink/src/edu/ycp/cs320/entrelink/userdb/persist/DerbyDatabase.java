@@ -89,7 +89,12 @@ public class DerbyDatabase implements IDatabase {
 		user.setPassword(resultSet.getString(index++));
 		user.setUserType(resultSet.getString(index++));
 		user.setProfilePic(resultSet.getString(index++));
+		user.setWebsite(resultSet.getString(index++));
 		user.setBio(resultSet.getString(index++));
+		user.setMajor(resultSet.getString(index++));
+		user.setStatus(resultSet.getString(index++));
+		user.setInterests(resultSet.getString(index++));
+		user.setSkills(resultSet.getString(index++));
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -165,7 +170,11 @@ public class DerbyDatabase implements IDatabase {
 						"	userType varchar(10)," +
 						"	userPic varchar(585)," +
 						"	userSite varchar(585)," +
-						"	userBio varchar(500) " +
+						"	userBio varchar(500)," +
+						"	userMajor varchar(500)," +
+						"	userStatus varchar(500)," +
+						"	userInterests varchar(500)," +
+						"	userSkills varchar(500) " +
 						")"
 					);	
 					stmt1.executeUpdate();
@@ -222,6 +231,10 @@ public class DerbyDatabase implements IDatabase {
 						insertUser.setString(7, user.getProfilePic());
 						insertUser.setString(8, user.getWebsite());
 						insertUser.setString(9, user.getBio());
+						insertUser.setString(9, user.getMajor());
+						insertUser.setString(9, user.getStatus());
+						insertUser.setString(9, user.getInterests());
+						insertUser.setString(9, user.getSkills());
 						insertUser.addBatch();
 					}
 					insertUser.executeBatch();

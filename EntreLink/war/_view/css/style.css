@@ -238,4 +238,28 @@ html, body {
 	font-size: 12px;
 }
 
+#newUserTable {
+	margin: 0 auto;
+	font-family: sans-serif;
+	font-size: 18px;
+	position: relative;
+}
+
+#newUserTable tr td {
+	padding-top: 20px;
+	vertical-align: top;
+}
+
+#newUserTable tr .leftTable {
+	width: 200px;
+}
+
+#newUserTable tr .rightTable {
+	width: 200px;
+	text-align: right;
+}
+
+.signupBox {
+	width: 200px;
+}
 

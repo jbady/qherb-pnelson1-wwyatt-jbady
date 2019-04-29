@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>EntreLink - Login</title>
+	<title>EntreLink - New Post</title>
 	<link rel="stylesheet" type="text/css" href="_view/css/style.css">
 </head>
 <body>
@@ -37,23 +37,45 @@
 	</div>
 
 	<div class="content">
-		<h2>Log In</h2>
+
 		<c:choose>
 			<c:when test="${! empty loggedInName}">
-				<h3 style="margin-top: 100px;">You are already logged in.</h3>
+				<h2>New Post</h2>
+				<form>
+					<table id="newPostTable">
+						<tr>
+							<td class="leftTable">Post Type: </td>
+							<td class="rightTable">
+								<select>
+									<option>Business Proposal</option>
+									<option>Student Proposal</option>
+									<option>Student Skills</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="leftTable">Post Title:</td>
+							<td class="rightTable"><input type="text" name="newPostTitle" id="newPostTitle"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Post Description:</td>
+							<td class="rightTable"><textarea name="newPostDescription" id="newPostDescription"></textarea></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Post Tags:<br><span style="color: #999; font-size: 10px; font-style: italic;">Separate with spaces.</span></td>
+							<td class="rightTable"><input type="text" name="newPostTags" id="newPostTags"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="Submit" name="submitPost" value="Submit"style="float: right;"></td>
+						</tr>
+					</table>
+				</form>
 			</c:when>
 			<c:otherwise>
-				<form action="${pageContext.servletContext.contextPath}/login" method="post" id="loginForm">
-					<!-- Super secret variable names so we don't get rekt by SQL injections :^) -->
-					Username or email:<br>
-					<input type="text" name="emailAsUsername" size="12" value="${emailAsUsername}" class="loginTextBox" /><br>
-					Password:<br>
-					<input type="password" name="passwordOfUser" size="12" value="${passwordOfUser}" class="loginTextBox" /><br>
-					<center><input type="Submit" name="submitLoginData" value="Log in"></center>	
-				</form>
-				<form action="${pageContext.servletContext.contextPath}/signup" method="get" id="signupForm">
-					<h3>Need an account?</h3>
-					<input type="Submit" name="submitLoginData" value="Sign up" style="display: block; margin: 0 auto;">
+				<div style="font-size: 20px; text-align: center; width: 100%; font-family: sans-serif; margin-top: 100px;">You must be logged in to make a new post.</div>
+				<form action="${pageContext.servletContext.contextPath}/login" method="get">
+					<input type="Submit" name="submit" value="Log In" style="display: block; margin: 10px auto;">
 				</form>
 			</c:otherwise>
 		</c:choose>

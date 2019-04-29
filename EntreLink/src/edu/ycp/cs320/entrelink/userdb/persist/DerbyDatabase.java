@@ -396,4 +396,33 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
+
+	@Override
+	public ArrayList<Post> findAllPosts() {
+		return executeTransaction(new Transaction<ArrayList<Post>>() {
+			@Override
+			public ArrayList<Post> execute(Connection conn) throws SQLException {
+				ArrayList<Post> posts = new ArrayList<Post>();
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;							
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement("select * from posts");
+					
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()) {
+							Post nPost = new Post();
+							loadPost(nPost, resultSet, 1);
+							posts.add(nPost);
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return posts;
+			}
+		});
+	}
 }

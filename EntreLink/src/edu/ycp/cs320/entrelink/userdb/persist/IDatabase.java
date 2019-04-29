@@ -15,4 +15,5 @@ public interface IDatabase {
 	public void addMultiplePostsToPostList(ArrayList<Post> posts);
 	public ArrayList<Post> findPostsByTitle(String title);
 	public ArrayList<Post> findPostsByUserName(String name);
+	public ArrayList<Post> findAllPosts();
 }

@@ -30,6 +30,10 @@
     <servlet-name>NewPostServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.entrelink.servlet.NewPostServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>SignupServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.entrelink.servlet.SignupServlet</servlet-class>
+  </servlet>
 
   <!-- Servlet mappings -->
   <servlet-mapping>
@@ -55,6 +59,10 @@
   <servlet-mapping>
     <servlet-name>NewPostServlet</servlet-name>
     <url-pattern>/new_post</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SignupServlet</servlet-name>
+    <url-pattern>/signup</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>

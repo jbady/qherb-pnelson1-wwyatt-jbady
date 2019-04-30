@@ -58,13 +58,13 @@
 		<div class="listingPost">
 			<h3 class="projectTitle">Poop Logger<span class="projectPosted">posted on April 28, 2019 at 8:15am</span></h3>
 			<div class="hideOverflow">
-				<p class="projectDescription">A device that attaches to the toilet and scans your poopy.  This will connect to an app where you can view your high scores, compete with friends, and ensure your colon is healthy.</p>
+				<p class="projectDescription">A device that attaches to the toilet and scans your poop.  This will connect to an app where you can view your high scores, compete with friends, and ensure your colon is healthy.</p>
 			</div>
 			<a href="#">Read More</a>
 		</div>-->
 	    <c:forEach items="${posts}" var="post">
 	        <div class="listingPost">
-	            <h3 class="projectTitle">${post.title}<span class="projectPosted">posted on </span></h3>
+	            <h3 class="projectTitle">${post.title}<span class="projectPosted"> posted by <a href="" style="line-height: 0;">${post.name}</a> on ${post.timePosted}</span></h3>
 	            <div class="hideOverflow">
 					<p class="projectDescription">${post.description}</p>
 	            </div>

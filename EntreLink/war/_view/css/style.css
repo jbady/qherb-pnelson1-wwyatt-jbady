@@ -40,6 +40,17 @@ html, body {
 	transition: 0.2s ease;
 	float: right;
 	margin-right: 10px;
+	transition: 0.2s ease;
+	width: 200px;
+}
+
+#searchBox:hover {
+	background-color: #cccccc;
+}
+
+#searchBox:focus {
+	background-color: #cccccc;
+	width: 250px;
 }
 
 .content {

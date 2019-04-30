@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="content">
-		<h2>Get Started</h2>
+		<h2>Welcome to EntreLink!</h2>
 		<form action="${pageContext.servletContext.contextPath}/new_post" method="makeNewProject">
 			<input type="Submit" name="newProject" value="New Project" class="getStartedButton">
 		</form>

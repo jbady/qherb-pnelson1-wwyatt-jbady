@@ -95,7 +95,7 @@ public class DerbyDatabase implements IDatabase {
 		user.setInterests(resultSet.getString(index++));
 		user.setSkills(resultSet.getString(index++));
 	}
-	private void loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
+	private Post loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
 		post.setPostId(resultSet.getInt(index++));
 		post.setPosterId(resultSet.getInt(index++));
 		String [] name = resultSet.getString(index++).split(" ");
@@ -103,6 +103,8 @@ public class DerbyDatabase implements IDatabase {
 		post.setTimePosted(resultSet.getInt(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
+		
+		return post;
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -332,9 +334,54 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public ArrayList<Post> findPostsByUserName(String name) {
+	public ArrayList<Post> findPostsByUserName(String userName) {
 		// TODO Auto-generated method stub
-		return null;
+		return executeTransaction(new Transaction<ArrayList<Post>>() {
+			@Override
+			public ArrayList<Post> execute(Connection conn) throws SQLException {
+				ArrayList<Post> posts = new ArrayList<Post>();
+				int user_id;
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;		
+				ResultSet resultSet1 = null;
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement("select users.user_id from users where users.username = ?");
+					stmt.setString(1, userName);
+					
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()) {
+							user_id = resultSet.getInt(1);
+							
+							try{
+								conn.setAutoCommit(true);
+								stmt1 = conn.prepareStatement(
+										"select * from posts where poster_id = ?"
+										);
+							
+								stmt1.setInt(1, user_id);
+								resultSet1 = stmt1.executeQuery();
+								
+								while(resultSet1.next()) {
+									Post nPost = new Post();
+									nPost = loadPost(nPost, resultSet1,1);
+									posts.add(nPost);
+								}
+							}finally {
+								DBUtil.closeQuietly(resultSet1);
+								DBUtil.closeQuietly(stmt1);
+							}
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return posts;
+			}
+		});
 	}
 
 	@Override

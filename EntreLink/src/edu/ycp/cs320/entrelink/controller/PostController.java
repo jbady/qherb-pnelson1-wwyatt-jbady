@@ -26,4 +26,17 @@ public class PostController {
 		}
 		return posts;
 	}
+	public ArrayList<Post> searchPostsByUserName(String userName){
+		ArrayList<Post> posts = new ArrayList<Post>();
+		
+		System.out.println("Finding posts from user: '" + userName + "'");
+		posts = db.findPostsByUserName(userName);
+		
+		if(posts == null) {
+			System.out.println("no posts found");
+		}else {
+			System.out.println("found " + posts.size() + " posts");
+		}
+		return posts;
+	}
 }

@@ -98,9 +98,8 @@ public class DerbyDatabase implements IDatabase {
 	private void loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
 		post.setPostId(resultSet.getInt(index++));
 		post.setPosterId(resultSet.getInt(index++));
-		String [] name = resultSet.getString(index++).split(" ");
-		post.setName(name[0], name[1]);
-		post.setTimePosted(resultSet.getInt(index++));
+		post.setName(resultSet.getString(index++), resultSet.getString(index++));
+		post.setTimePosted(resultSet.getString(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
 	}
@@ -191,9 +190,9 @@ public class DerbyDatabase implements IDatabase {
 						"create table posts (" +
 						"	post_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +
-						"	poster_id varchar(4)," +
+						"	poster_id integer," +
 						"	name varchar(40)," +
-						"	timePosted varchar(10)," +
+						"	timePosted varchar(40)," +
 						"	title varchar(50)," +
 						"	description varchar(1000)" +
 						")"
@@ -254,7 +253,7 @@ public class DerbyDatabase implements IDatabase {
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
 						insertPost.setString(2, post.getName());
-						insertPost.setInt(3, post.getTimePosted());
+						insertPost.setString(3, post.getTimePosted());
 						insertPost.setString(4, post.getTitle());
 						insertPost.setString(5, post.getDescription());
 						insertPost.addBatch();
@@ -408,7 +407,11 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					conn.setAutoCommit(true);
 					
-					stmt = conn.prepareStatement("select * from posts");
+					stmt = conn.prepareStatement(
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description " + 
+							"FROM users, posts " + 
+							"WHERE users.user_id = posts.poster_id"
+							);
 					
 					resultSet = stmt.executeQuery();
 					

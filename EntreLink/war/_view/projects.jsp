@@ -62,13 +62,15 @@
 			</div>
 			<a href="#">Read More</a>
 		</div>-->
+		
 	    <c:forEach items="${posts}" var="post">
 	        <div class="listingPost">
-	            <h3 class="projectTitle">${post.title}<span class="projectPosted"> posted by <a href="" style="line-height: 0;">${post.name}</a> on ${post.timePosted}</span></h3>
+	            <h3 class="projectTitle">${post.title}<span value="${post.name}" class="projectPosted"> posted by ${post.name} on ${post.timePosted}</span></h3>
 	            <div class="hideOverflow">
 					<p class="projectDescription">${post.description}</p>
 	            </div>
-	        </tr>
+			<a href="#">Read More</a>
+	        </div>
 	    </c:forEach>
 	</div>
 

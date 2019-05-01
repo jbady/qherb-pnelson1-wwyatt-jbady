@@ -13,7 +13,7 @@ public class SignupController {
 	
 	private NewUser model;
 	
-	public void setModel() {
+	public void setModel(NewUser model) {
 		this.model = model;
 	}
 	

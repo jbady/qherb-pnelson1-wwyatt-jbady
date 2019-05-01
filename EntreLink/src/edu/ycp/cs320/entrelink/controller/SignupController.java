@@ -46,6 +46,16 @@ public class SignupController {
 		return false;
 	}
 	
+	public boolean verifyEmailIsValid() {
+		String testEmail = model.getNewEmail();
+		Integer emailLength = testEmail.length();
+		String getExtension = testEmail.substring(emailLength-8, emailLength);
+		if(getExtension.equals("@ycp.edu")) {
+			return true;
+		}
+		return false;
+	}
+	
 	public NewUser getModel() {
 		return model;
 	}

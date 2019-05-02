@@ -60,7 +60,6 @@ public class InitialData {
 				Post newPost = new Post();
 				newPost.setPostId(postID++);
 				newPost.setPosterId(Integer.parseInt(i.next()));
-				newPost.setName(i.next(), "");
 				newPost.setTimePosted(i.next());
 				newPost.setTitle(i.next());
 				newPost.setDescription(i.next());

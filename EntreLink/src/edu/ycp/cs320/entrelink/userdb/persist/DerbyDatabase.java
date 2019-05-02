@@ -191,7 +191,6 @@ public class DerbyDatabase implements IDatabase {
 						"	post_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +
 						"	poster_id integer," +
-						"	name varchar(40)," +
 						"	timePosted varchar(40)," +
 						"	title varchar(50)," +
 						"	description varchar(1000)" +
@@ -248,14 +247,13 @@ public class DerbyDatabase implements IDatabase {
 					insertUser.executeBatch();
 					
 					// populate posts table
-					insertPost = conn.prepareStatement("insert into posts (poster_id, name, timePosted, title, description) "
-							+ " values (?, ?, ?, ?, ?)");
+					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description) "
+							+ " values (?, ?, ?, ?)");
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
-						insertPost.setString(2, post.getName());
-						insertPost.setString(3, post.getTimePosted());
-						insertPost.setString(4, post.getTitle());
-						insertPost.setString(5, post.getDescription());
+						insertPost.setString(2, post.getTimePosted());
+						insertPost.setString(3, post.getTitle());
+						insertPost.setString(4, post.getDescription());
 						insertPost.addBatch();
 					}
 					insertPost.executeBatch();

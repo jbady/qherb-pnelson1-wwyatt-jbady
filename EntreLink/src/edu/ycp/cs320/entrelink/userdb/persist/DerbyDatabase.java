@@ -408,7 +408,8 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description " + 
 							"FROM users, posts " + 
-							"WHERE users.user_id = posts.poster_id"
+							"WHERE users.user_id = posts.poster_id " +
+							"ORDER BY posts.post_id DESC"
 							);
 					
 					resultSet = stmt.executeQuery();

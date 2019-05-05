@@ -102,6 +102,7 @@ public class DerbyDatabase implements IDatabase {
 		post.setTimePosted(resultSet.getString(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
+		post.setPostType(resultSet.getInt(index++));
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -193,7 +194,8 @@ public class DerbyDatabase implements IDatabase {
 						"	poster_id integer," +
 						"	timePosted varchar(40)," +
 						"	title varchar(50)," +
-						"	description varchar(1000)" +
+						"	description varchar(1000)," +
+						"	postType integer" +
 						")"
 					);
 					stmt2.executeUpdate();
@@ -247,13 +249,14 @@ public class DerbyDatabase implements IDatabase {
 					insertUser.executeBatch();
 					
 					// populate posts table
-					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description) "
-							+ " values (?, ?, ?, ?)");
+					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType) "
+							+ " values (?, ?, ?, ?, ?)");
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
 						insertPost.setString(2, post.getTimePosted());
 						insertPost.setString(3, post.getTitle());
 						insertPost.setString(4, post.getDescription());
+						insertPost.setInt(5, post.getPostType());
 						insertPost.addBatch();
 					}
 					insertPost.executeBatch();
@@ -283,18 +286,6 @@ public class DerbyDatabase implements IDatabase {
 	public ArrayList<Post> findPostsByTags(ArrayList<String> tags) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public void addPostToPostList(Post post) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addMultiplePostsToPostList(ArrayList<Post> posts) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -406,9 +397,43 @@ public class DerbyDatabase implements IDatabase {
 					conn.setAutoCommit(true);
 					
 					stmt = conn.prepareStatement(
-							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description " + 
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
 							"FROM users, posts " + 
-							"WHERE users.user_id = posts.poster_id " +
+							"WHERE users.user_id = posts.poster_id AND (posts.postType = 0 OR posts.postType = 1)" +
+							"ORDER BY posts.post_id DESC"
+							);
+					
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()) {
+							Post nPost = new Post();
+							loadPost(nPost, resultSet, 1);
+							posts.add(nPost);
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return posts;
+			}
+		});
+	}
+	
+	@Override
+	public ArrayList<Post> findAllBusinessPosts() {
+		return executeTransaction(new Transaction<ArrayList<Post>>() {
+			@Override
+			public ArrayList<Post> execute(Connection conn) throws SQLException {
+				ArrayList<Post> posts = new ArrayList<Post>();
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;							
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement(
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
+							"FROM users, posts " + 
+							"WHERE users.user_id = posts.poster_id AND posts.postType = 2" +
 							"ORDER BY posts.post_id DESC"
 							);
 					

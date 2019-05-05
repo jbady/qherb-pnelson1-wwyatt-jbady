@@ -11,9 +11,8 @@ public interface IDatabase {
 	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
 			String userType,	String bio, String major, String status, String interest, String skills);
 	public ArrayList<Post> findPostsByTags(ArrayList<String> tags);
-	public void addPostToPostList(Post post);
-	public void addMultiplePostsToPostList(ArrayList<Post> posts);
 	public ArrayList<Post> findPostsByTitle(String title);
 	public ArrayList<Post> findPostsByUserName(String name);
 	public ArrayList<Post> findAllPosts();
+	public ArrayList<Post> findAllBusinessPosts();
 }

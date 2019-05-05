@@ -114,4 +114,10 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
+	@Override
+	public ArrayList<Post> findAllBusinessPosts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -32,9 +32,10 @@ public class ProjectServlet extends HttpServlet {
 
 		controller = new AllPostsController();
 
-		// get list of authors returned from query
-		posts = controller.getAllPosts();
-
+		// get list of posts returned from query
+		posts = controller.getAllPosts("student");
+		posts.addAll(controller.getAllPosts("business"));
+		
 		// any authors found?
 		if (posts == null) {
 			errorMessage = "No Posts were found in the Library";

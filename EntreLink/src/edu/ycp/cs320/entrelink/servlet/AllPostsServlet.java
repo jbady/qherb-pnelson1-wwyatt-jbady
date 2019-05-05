@@ -52,9 +52,9 @@ public class AllPostsServlet extends HttpServlet {
 		controller = new AllPostsController();
 
 		// get list of authors returned from query
-		posts = controller.getAllPosts();
+		posts = controller.getAllPosts("student");
 
-		// any authors found?
+		// any posts found?
 		if (posts == null) {
 			errorMessage = "No Posts were found in the Library";
 		}

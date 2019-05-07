@@ -114,4 +114,10 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
+	@Override
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

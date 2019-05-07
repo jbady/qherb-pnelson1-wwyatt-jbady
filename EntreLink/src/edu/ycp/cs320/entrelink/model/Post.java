@@ -9,7 +9,7 @@ public class Post {
 	private String name;
 	
 	// Everything else
-	private int timePosted;
+	private String timePosted;
 	private int postId;
 	private String postTitle;
 	private String postDescription;
@@ -18,7 +18,7 @@ public class Post {
 	public Post() {
 		
 	}
-	public Post(User user, int timePosted, String postTitle, String postDescription, ArrayList<String> tags) {
+	public Post(User user, String timePosted, String postTitle, String postDescription, ArrayList<String> tags) {
 		// User-related fields
 		posterId = user.getUserId();
 		name = user.getUserFirstName() + " " + user.getUserLastName();
@@ -47,10 +47,10 @@ public class Post {
 	}
 
 	// Set and get for time posted
-	public void setTimePosted(int timePosted) {
+	public void setTimePosted(String timePosted) {
 		this.timePosted = timePosted;
 	}
-	public int getTimePosted() {
+	public String getTimePosted() {
 		return timePosted;
 	}
 	

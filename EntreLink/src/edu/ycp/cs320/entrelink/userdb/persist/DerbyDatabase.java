@@ -98,9 +98,8 @@ public class DerbyDatabase implements IDatabase {
 	private Post loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
 		post.setPostId(resultSet.getInt(index++));
 		post.setPosterId(resultSet.getInt(index++));
-		String [] name = resultSet.getString(index++).split(" ");
-		post.setName(name[0], name[1]);
-		post.setTimePosted(resultSet.getInt(index++));
+		post.setName(resultSet.getString(index++), resultSet.getString(index++));
+		post.setTimePosted(resultSet.getString(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
 		
@@ -193,9 +192,8 @@ public class DerbyDatabase implements IDatabase {
 						"create table posts (" +
 						"	post_id integer primary key " +
 						"		generated always as identity (start with 1, increment by 1), " +
-						"	poster_id varchar(4)," +
-						"	name varchar(40)," +
-						"	timePosted varchar(10)," +
+						"	poster_id integer," +
+						"	timePosted varchar(40)," +
 						"	title varchar(50)," +
 						"	description varchar(1000)" +
 						")"
@@ -251,14 +249,13 @@ public class DerbyDatabase implements IDatabase {
 					insertUser.executeBatch();
 					
 					// populate posts table
-					insertPost = conn.prepareStatement("insert into posts (poster_id, name, timePosted, title, description) "
-							+ " values (?, ?, ?, ?, ?)");
+					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description) "
+							+ " values (?, ?, ?, ?)");
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
-						insertPost.setString(2, post.getName());
-						insertPost.setInt(3, post.getTimePosted());
-						insertPost.setString(4, post.getTitle());
-						insertPost.setString(5, post.getDescription());
+						insertPost.setString(2, post.getTimePosted());
+						insertPost.setString(3, post.getTitle());
+						insertPost.setString(4, post.getDescription());
 						insertPost.addBatch();
 					}
 					insertPost.executeBatch();
@@ -348,7 +345,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					conn.setAutoCommit(true);
 					
-					stmt = conn.prepareStatement("select users.user_id from users where users.username = ?");
+					stmt = conn.prepareStatement("select users.user_id from users where users.username like '%' || ? || '%'");
 					stmt.setString(1, userName);
 					
 					resultSet = stmt.executeQuery();
@@ -398,7 +395,8 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					conn.setAutoCommit(true);
 					
-					stmt = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio, userMajor, userStatus, userInterests, userSkills) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					stmt = conn.prepareStatement("insert into users (username, firstname, lastname, email, password, userType, userPic, userSite, userBio, userMajor, userStatus, userInterests, userSkills) "
+							+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 							
 					stmt.setString(1, username);
 					stmt.setString(2, userFirstName);
@@ -406,7 +404,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setString(4, email);
 					stmt.setString(5, password);
 					stmt.setString(6, userType);
-					stmt.setString(7, "N/A");
+					stmt.setString(7, "https://i.imgur.com/46FYTE7.png");
 					stmt.setString(8, "N/A");
 					stmt.setString(9, bio);
 					stmt.setString(10, major);
@@ -455,7 +453,11 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					conn.setAutoCommit(true);
 					
-					stmt = conn.prepareStatement("select * from posts");
+					stmt = conn.prepareStatement(
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description " + 
+							"FROM users, posts " + 
+							"WHERE users.user_id = posts.poster_id"
+							);
 					
 					resultSet = stmt.executeQuery();
 					
@@ -470,6 +472,51 @@ public class DerbyDatabase implements IDatabase {
 				}
 				return posts;
 			}
+		});
+	}
+
+	@Override
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<Post>() {
+			@Override
+			public Post execute(Connection conn) throws SQLException {
+				Post nPost = new Post();
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				PreparedStatement stmt2 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet1 = null;
+				
+						try {
+							
+							conn.setAutoCommit(true);
+							
+							stmt1 = conn.prepareStatement("insert into posts (poster_id, timeposted, title, description) values (?, ?, ?, ?)");
+							stmt1.setInt(1, poster_id);
+							stmt1.setString(2, timePosted);
+							stmt1.setString(3, title);
+							stmt1.setString(4, description);
+							
+							stmt1.execute();
+							
+							stmt2 = conn.prepareStatement("select * from posts where poster_id = ? and title = ?");
+							
+							stmt2.setInt(1, poster_id);
+							stmt2.setString(2, title);
+							
+							resultSet1 = stmt2.executeQuery();
+							
+							if(resultSet1.next()) {
+								nPost = loadPost(nPost, resultSet1, 1);
+							}
+						}finally {
+							DBUtil.closeQuietly(resultSet1);
+							DBUtil.closeQuietly(stmt1);
+							DBUtil.closeQuietly(stmt2);
+						}return nPost;
+					}
+				
 		});
 	}
 }

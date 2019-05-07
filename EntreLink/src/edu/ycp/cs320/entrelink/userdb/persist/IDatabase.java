@@ -16,4 +16,5 @@ public interface IDatabase {
 	public ArrayList<Post> findPostsByTitle(String title);
 	public ArrayList<Post> findPostsByUserName(String name);
 	public ArrayList<Post> findAllPosts();
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description);
 }

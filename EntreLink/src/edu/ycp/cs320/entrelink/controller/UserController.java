@@ -31,6 +31,19 @@ public class UserController {
 		
 		return newUser;
 	}
+	public User editUserBio(String username, String bio) {
+		System.out.println("changing user's bio...");
+		
+		newUser = db.changeUserBio(username, bio);
+		
+		if(newUser!=null) {
+			System.out.println("system has changed user's bio");
+			return newUser;
+		}else {
+			System.out.println("bio was not changed");
+			return null;
+		}
+	}
 	
 	public User getModel() {
 		return model;

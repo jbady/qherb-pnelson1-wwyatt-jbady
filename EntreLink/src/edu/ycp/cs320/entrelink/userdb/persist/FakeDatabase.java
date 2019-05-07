@@ -127,15 +127,23 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	@Override
-	public void deleteSinglePost(int poster_id, String title) {
+	public Boolean deleteSinglePost(int poster_id, String title) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteAllUserPosts(int poster_id) {
+	public Boolean deleteAllUserPosts(int poster_id) {
+		return null;
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public User changeUserBio(String username, String bio) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

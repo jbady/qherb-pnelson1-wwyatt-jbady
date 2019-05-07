@@ -543,9 +543,8 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public void deleteSinglePost(int poster_id, String title) {
-		// TODO Auto-generated method stub
-		executeTransaction(new Transaction<Boolean>() {
+	public Boolean deleteSinglePost(int poster_id, String title) {
+		return executeTransaction(new Transaction<Boolean>() {
 			@Override
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt = null;
@@ -559,9 +558,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setInt(1, poster_id);
 					stmt.setString(2, title);
 					
-					stmt.execute();
-					
-					return true;
+					return stmt.execute();
 				}finally {
 					DBUtil.closeQuietly(stmt);
 				}
@@ -570,8 +567,79 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public void deleteAllUserPosts(int poster_id) {
+	public Boolean deleteAllUserPosts(int poster_id) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement("delete from posts where posts.poster_id = ?");
+					
+					stmt.setInt(1, poster_id);
+					
+					return stmt.execute();
+				}finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	@Override
+	public User changeUserBio(String username, String bio) {
 		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					
+					stmt = conn.prepareStatement("update posts set bio = ? where poster_id = ?");
+					
+					stmt.setString(1, bio);
+					stmt.setInt(2, resultSet.getInt(0));
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
 		
 	}
 }

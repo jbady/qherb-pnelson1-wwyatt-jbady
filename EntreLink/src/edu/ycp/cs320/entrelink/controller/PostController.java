@@ -52,4 +52,26 @@ public class PostController {
 		}
 		return post;
 	}
+	public void deleteSinglePost(int poster_id, String title) {
+		System.out.println("deleteing post...");
+		
+		Boolean done = db.deleteSinglePost(poster_id, title);
+		
+		if(done) {
+			System.out.println("post '" + title + "' by user numer '" + poster_id + "' has been deleted");
+		}else {
+			System.out.println("post was not deleted");
+		}
+	}
+	public void deleteAllPosts(int poster_id) {
+		System.out.println("deleteing all posts by user...");
+		
+		Boolean done = db.deleteAllUserPosts(poster_id);
+		
+		if(done) {
+			System.out.println("posts by user number '" + poster_id + "' have been deleted");
+		}else {
+			System.out.println("posts were not deleted");
+		}
+	}
 }

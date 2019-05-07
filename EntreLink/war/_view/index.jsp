@@ -51,6 +51,30 @@
 				<th>Student Posts</th>
 				<th>Business Posts</th>
 			</tr>
+			<tr>
+				<td>
+					<c:forEach items="${posts}" var="post">
+						<div postId="${post.postId}" class="listingPost">
+	            			<h3 class="projectTitle">${post.title}<span class="projectPosted"> posted by ${post.name} on ${post.timePosted}</span></h3>
+	            			<div class="hideOverflow">
+							<p class="projectDescription">${post.description}</p>
+	            			</div>
+							<a href="#">Read More</a>
+	        			</div>
+	    			</c:forEach>
+				</td>
+				<td>
+					<c:forEach items="${bPosts}" var="bPost">
+						<div postId="${bPost.postId}" class="listingPost">
+	            			<h3 class="projectTitle">${bPost.title}<span class="projectPosted"> posted by ${bPost.name} on ${bPost.timePosted}</span></h3>
+	            			<div class="hideOverflow">
+							<p class="projectDescription">${bPost.description}</p>
+	            			</div>
+							<a href="#">Read More</a>
+	        			</div>
+	    			</c:forEach>
+				</td>
+			</tr>
 		</table>
 	</div>
 

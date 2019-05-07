@@ -48,15 +48,17 @@ public class PostControllerTest {
 	public void testInsertNewPost() {
 		Post tPost = new Post();
 		tPost.setDescription("This post is a test post, don't mind me");
-		tPost.setTitle("The test post");
+		tPost.setTitle("TEST POST");
 		tPost.setPosterId(1);
 		tPost.setTimePosted("5 April 2019, 08:01 pm");
+		tPost.setPostType(0);
 		
-		Post tNewPost = controller.createNewPost(tPost.getPosterId(), tPost.getTimePosted(), tPost.getTitle(), tPost.getDescription());
+		Post tNewPost = controller.createNewPost(tPost.getPosterId(), tPost.getTimePosted(), tPost.getTitle(), tPost.getDescription(), tPost.getPostType());
 		
 		assertEquals(tPost.getDescription(), tNewPost.getDescription());
 		assertEquals(tPost.getTitle(), tNewPost.getTitle());
 		assertEquals(tPost.getPosterId(), tNewPost.getPosterId());
 		assertEquals(tPost.getTimePosted(), tNewPost.getTimePosted());
+		assertEquals(tPost.getPostType(), tNewPost.getPostType());
 	}
 }

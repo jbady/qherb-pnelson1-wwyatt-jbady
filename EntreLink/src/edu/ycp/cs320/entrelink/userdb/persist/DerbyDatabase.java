@@ -95,15 +95,13 @@ public class DerbyDatabase implements IDatabase {
 		user.setInterests(resultSet.getString(index++));
 		user.setSkills(resultSet.getString(index++));
 	}
-	private Post loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
+	private void loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
 		post.setPostId(resultSet.getInt(index++));
 		post.setPosterId(resultSet.getInt(index++));
-		post.setName(resultSet.getString(index++), resultSet.getString(index++));
 		post.setTimePosted(resultSet.getString(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
-		
-		return post;
+		post.setPostType(resultSet.getInt(index++));
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -195,7 +193,8 @@ public class DerbyDatabase implements IDatabase {
 						"	poster_id integer," +
 						"	timePosted varchar(40)," +
 						"	title varchar(50)," +
-						"	description varchar(1000)" +
+						"	description varchar(1000)," +
+						"	postType integer" +
 						")"
 					);
 					stmt2.executeUpdate();
@@ -249,13 +248,14 @@ public class DerbyDatabase implements IDatabase {
 					insertUser.executeBatch();
 					
 					// populate posts table
-					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description) "
-							+ " values (?, ?, ?, ?)");
+					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType) "
+							+ " values (?, ?, ?, ?, ?)");
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
 						insertPost.setString(2, post.getTimePosted());
 						insertPost.setString(3, post.getTitle());
 						insertPost.setString(4, post.getDescription());
+						insertPost.setInt(5, post.getPostType());
 						insertPost.addBatch();
 					}
 					insertPost.executeBatch();
@@ -288,18 +288,6 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public void addPostToPostList(Post post) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addMultiplePostsToPostList(ArrayList<Post> posts) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public ArrayList<Post> findPostsByTitle(String title) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<ArrayList<Post>>() {
@@ -311,7 +299,7 @@ public class DerbyDatabase implements IDatabase {
 				try {
 					conn.setAutoCommit(true);
 					
-					stmt = conn.prepareStatement("select * from posts where title like '%' || ? || '%'");
+					stmt = conn.prepareStatement("select * from posts where posts.title like '%' || ? || '%'");
 					stmt.setString(1, title);
 					
 					resultSet = stmt.executeQuery();
@@ -356,7 +344,7 @@ public class DerbyDatabase implements IDatabase {
 							try{
 								conn.setAutoCommit(true);
 								stmt1 = conn.prepareStatement(
-										"select * from posts where poster_id = ?"
+										"select * from posts where posts.poster_id = ?"
 										);
 							
 								stmt1.setInt(1, user_id);
@@ -364,7 +352,7 @@ public class DerbyDatabase implements IDatabase {
 								
 								while(resultSet1.next()) {
 									Post nPost = new Post();
-									nPost = loadPost(nPost, resultSet1,1);
+									loadPost(nPost, resultSet1,1);
 									posts.add(nPost);
 								}
 							}finally {
@@ -454,9 +442,44 @@ public class DerbyDatabase implements IDatabase {
 					conn.setAutoCommit(true);
 					
 					stmt = conn.prepareStatement(
-							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description " + 
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
 							"FROM users, posts " + 
-							"WHERE users.user_id = posts.poster_id"
+							"WHERE users.user_id = posts.poster_id AND (posts.postType = 0 OR posts.postType = 1)" +
+							"ORDER BY posts.post_id DESC"
+							);
+					
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()) {
+							Post nPost = new Post();
+							loadPost(nPost, resultSet, 1);
+							posts.add(nPost);
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return posts;
+			}
+		});
+	}
+	
+	@Override
+	public ArrayList<Post> findAllBusinessPosts() {
+		return executeTransaction(new Transaction<ArrayList<Post>>() {
+			@Override
+			public ArrayList<Post> execute(Connection conn) throws SQLException {
+				ArrayList<Post> posts = new ArrayList<Post>();
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;							
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement(
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
+							"FROM users, posts " + 
+							"WHERE users.user_id = posts.poster_id AND posts.postType = 2" +
+							"ORDER BY posts.post_id DESC"
 							);
 					
 					resultSet = stmt.executeQuery();
@@ -476,31 +499,30 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public Post insertNewPost(int poster_id, String timePosted, String title, String description) {
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<Post>() {
 			@Override
 			public Post execute(Connection conn) throws SQLException {
 				Post nPost = new Post();
-				PreparedStatement stmt = null;
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
-				ResultSet resultSet = null;
 				ResultSet resultSet1 = null;
 				
 						try {
 							
 							conn.setAutoCommit(true);
 							
-							stmt1 = conn.prepareStatement("insert into posts (poster_id, timeposted, title, description) values (?, ?, ?, ?)");
+							stmt1 = conn.prepareStatement("insert into posts (poster_id, timeposted, title, description, posttype) values (?, ?, ?, ?, ?)");
 							stmt1.setInt(1, poster_id);
 							stmt1.setString(2, timePosted);
 							stmt1.setString(3, title);
 							stmt1.setString(4, description);
+							stmt1.setInt(5, postType);
 							
 							stmt1.execute();
 							
-							stmt2 = conn.prepareStatement("select * from posts where poster_id = ? and title = ?");
+							stmt2 = conn.prepareStatement("select * from posts where posts.poster_id = ? and posts.title = ?");
 							
 							stmt2.setInt(1, poster_id);
 							stmt2.setString(2, title);
@@ -508,7 +530,7 @@ public class DerbyDatabase implements IDatabase {
 							resultSet1 = stmt2.executeQuery();
 							
 							if(resultSet1.next()) {
-								nPost = loadPost(nPost, resultSet1, 1);
+								loadPost(nPost, resultSet1, 1);
 							}
 						}finally {
 							DBUtil.closeQuietly(resultSet1);
@@ -518,5 +540,38 @@ public class DerbyDatabase implements IDatabase {
 					}
 				
 		});
+	}
+
+	@Override
+	public void deleteSinglePost(int poster_id, String title) {
+		// TODO Auto-generated method stub
+		executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement("delete from posts where posts.poster_id = ? and posts.title = ?");
+					
+					stmt.setInt(1, poster_id);
+					stmt.setString(2, title);
+					
+					stmt.execute();
+					
+					return true;
+				}finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+
+	@Override
+	public void deleteAllUserPosts(int poster_id) {
+		// TODO Auto-generated method stub
+		
 	}
 }

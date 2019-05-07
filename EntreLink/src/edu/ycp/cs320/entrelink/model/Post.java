@@ -14,11 +14,12 @@ public class Post {
 	private String postTitle;
 	private String postDescription;
 	private ArrayList<String> tags;
+	private int postType; //0 = student post; 1 = student skill(s); 2 = business post
 	
 	public Post() {
 		
 	}
-	public Post(User user, String timePosted, String postTitle, String postDescription, ArrayList<String> tags) {
+	public Post(User user, String timePosted, String postTitle, String postDescription, ArrayList<String> tags, int postType) {
 		// User-related fields
 		posterId = user.getUserId();
 		name = user.getUserFirstName() + " " + user.getUserLastName();
@@ -28,6 +29,16 @@ public class Post {
 		this.postTitle = postTitle;
 		this.postDescription = postDescription;
 		this.tags = tags;
+		this.postType = postType;
+	}
+	
+	// Set and get for post type
+	public void setPostType(int postType) {
+		this.postType = postType;
+	}
+	
+	public int getPostType() {
+		return postType;
 	}
 	
 	// Set and get for poster ID

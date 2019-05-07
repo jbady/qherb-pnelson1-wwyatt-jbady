@@ -115,9 +115,29 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	@Override
-	public Post insertNewPost(int poster_id, String timePosted, String title, String description) {
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrayList<Post> findAllBusinessPosts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteSinglePost(int poster_id, String title) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAllUserPosts(int poster_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

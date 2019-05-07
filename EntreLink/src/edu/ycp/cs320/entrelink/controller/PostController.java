@@ -39,11 +39,11 @@ public class PostController {
 		}
 		return posts;
 	}
-	public Post createNewPost(int poster_id, String timePosted, String title, String description) {
+	public Post createNewPost(int poster_id, String timePosted, String title, String description, int postType) {
 		Post post = new Post();
 		System.out.println("inserting new post...");
 		
-		post = db.insertNewPost(poster_id, timePosted, title, description);
+		post = db.insertNewPost(poster_id, timePosted, title, description, postType);
 		
 		if(post == null) {
 			System.out.println("post was not inserted");

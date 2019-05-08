@@ -25,7 +25,7 @@ public class SignupServlet extends HttpServlet {
 		Boolean sessionExists = session.isNew();
         
 		
-		System.out.println("Index Servlet: doGet");
+		System.out.println("Signup Servlet: doGet");
 		
 		req.getRequestDispatcher("/_view/signup.jsp").forward(req, resp);
 	}

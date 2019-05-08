@@ -98,6 +98,7 @@ public class DerbyDatabase implements IDatabase {
 	private void loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
 		post.setPostId(resultSet.getInt(index++));
 		post.setPosterId(resultSet.getInt(index++));
+		post.setName(resultSet.getString(index++), resultSet.getString(index++));
 		post.setTimePosted(resultSet.getString(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));

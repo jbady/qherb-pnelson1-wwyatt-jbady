@@ -18,7 +18,7 @@ public class NewPostServlet extends HttpServlet {
 		HttpSession session=req.getSession();
 		session.getAttribute("loggedInName");
 		
-		System.out.println("Search Servlet: doGet");
+		System.out.println("New Post Servlet: doGet");
 		
 		req.getRequestDispatcher("/_view/new_post.jsp").forward(req, resp);
 	}	

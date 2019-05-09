@@ -55,15 +55,15 @@
 						</tr>
 						<tr>
 							<td class="leftTable">Post Title:</td>
-							<td class="rightTable"><input type="text" name="postTitle" size="12" value="${postTitle}" class="newPostBox"></td>
+							<td class="rightTable"><input type="text" name="postTitle" size="30" value="${postTitle}" class="newPostBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Post Description:</td>
-							<td class="rightTable"><textarea name="postDescription" size="12" value="${postDescription}" id="postDescription"></textarea></td>
+							<td class="rightTable"><textarea name="postDescription" size="30" value="${postDescription}" id="postDescription"></textarea></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Post Tags:<br><span style="color: #999; font-size: 10px; font-style: italic;">Separate with spaces.</span></td>
-							<td class="rightTable"><input type="text" name="tags" size="12" value="${tags}" class="newPostBox"></td>
+							<td class="rightTable"><input type="text" name="tags" size="30" value="${tags}" class="newPostBox"></td>
 						</tr>
 						<tr>
 							<td></td>

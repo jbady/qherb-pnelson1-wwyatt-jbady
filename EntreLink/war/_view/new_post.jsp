@@ -41,7 +41,7 @@
 		<c:choose>
 			<c:when test="${! empty loggedInName}">
 				<h2>New Post</h2>
-				<form>
+				<form action="${pageContext.servletContext.contextPath}/new_post" method="post" id="newPostForm">
 					<table id="newPostTable">
 						<tr>
 							<td class="leftTable">Post Type: </td>
@@ -55,15 +55,15 @@
 						</tr>
 						<tr>
 							<td class="leftTable">Post Title:</td>
-							<td class="rightTable"><input type="text" name="newPostTitle" id="newPostTitle"></td>
+							<td class="rightTable"><input type="text" name="postTitle" size="12" value="${postTitle}" class="newPostBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Post Description:</td>
-							<td class="rightTable"><textarea name="newPostDescription" id="newPostDescription"></textarea></td>
+							<td class="rightTable"><textarea name="postDescription" size="12" value="${postDescription}" id="postDescription"></textarea></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Post Tags:<br><span style="color: #999; font-size: 10px; font-style: italic;">Separate with spaces.</span></td>
-							<td class="rightTable"><input type="text" name="newPostTags" id="newPostTags"></td>
+							<td class="rightTable"><input type="text" name="tags" size="12" value="${tags}" class="newPostBox"></td>
 						</tr>
 						<tr>
 							<td></td>

@@ -43,35 +43,35 @@
 				<h3 style="margin-top: 100px;">You are already logged in.</h3>
 			</c:when>
 			<c:otherwise>
-				<form>
+				<form action="${pageContext.servletContext.contextPath}/signup" method="post" id="signupForm">
 					<table id="newUserTable">
 						<tr>
 							<td class="leftTable">First Name: </td>
-							<td class="rightTable"><input type="text" name="newPostTitle" class="signupBox"></td>
+							<td class="rightTable"><input type="text" name="firstname" size="12" value="${firstname}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Last Name: </td>
-							<td class="rightTable"><input type="text" name="newPostTitle" class="signupBox"></td>
+							<td class="rightTable"><input type="text" name="lastname" size="12" value="${lastname}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Username: </td>
-							<td class="rightTable"><input type="text" name="newPostTitle" class="signupBox"></td>
+							<td class="rightTable"><input type="text" name="newUsername" size="12" value="${newUsername}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Email: </td>
-							<td class="rightTable"><input type="text" name="newPostTitle" class="signupBox" id="userEmail"></td>
+							<td class="rightTable"><input type="text" name="newEmail" size="12" value="${newEmail}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Confirm Email: </td>
-							<td class="rightTable"><input type="text" name="newPostTitle" class="signupBox" id="confirmEmail"></td>
+							<td class="rightTable"><input type="text" name="confirmEmail" size="12" value="${confirmEmail}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Password: </td>
-							<td class="rightTable"><input type="password" name="newPostTitle" class="signupBox" id="userPassword"></td>
+							<td class="rightTable"><input type="text" name="newPassword" size="12" value="${newPassword}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Confirm Password: </td>
-							<td class="rightTable"><input type="password" name="newPostTitle" class="signupBox" id="confirmPassword"></td>
+							<td class="rightTable"><input type="text" name="confirmPassword" size="12" value="${confirmPassword}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td>I am a:</td>

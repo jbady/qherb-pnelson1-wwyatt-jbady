@@ -80,6 +80,7 @@ public class SignupServlet extends HttpServlet {
 			// otherwise, sign the user up
 			if(!doesUserExist && areEmailsSame && arePasswordsSame && isEmailValid) {
 				// not sure what to put in here yet
+				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 			}
 		
 	}

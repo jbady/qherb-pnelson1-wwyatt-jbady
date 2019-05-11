@@ -80,7 +80,7 @@
 			<input type="Submit" name="submitSearch" value="Search!">
 		</div>
 			<div id="description">
-				This is where users will be able to search for specific projects once implemented. Right now it does nothing.
+				it works
 			</div>
 	</body>
 </html>

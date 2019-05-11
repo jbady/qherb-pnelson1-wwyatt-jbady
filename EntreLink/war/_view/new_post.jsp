@@ -36,9 +36,13 @@
 		</form>
 	</div>
 
+	<!--THIS IS WHERE THE PAGE CONTENT BEGINS-->
+
 	<div class="content">
 
 		<c:choose>
+		
+		
 			<c:when test="${! empty loggedInName}">
 				<h2>New Post</h2>
 				<form action="${pageContext.servletContext.contextPath}/new_post" method="post" id="newPostForm">
@@ -46,16 +50,15 @@
 						<tr>
 							<td class="leftTable">Post Type: </td>
 							<td class="rightTable">
-								<select>
-									<option>Business Proposal</option>
+								<select name="postType" value="${postType}">
 									<option>Student Proposal</option>
-									<option>Student Skills</option>
+									<option>Student Skill</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<td class="leftTable">Post Title:</td>
-							<td class="rightTable"><input type="text" name="postTitle" size="30" value="${postTitle}" class="newPostBox"></td>
+							<td class="rightTable"><input type="text" name="postTitle" size="30" value="${postTitle}" class="newPostBox"><input hidden type="text" name="loggedInId" size="30" value="${loggedInId}" class="newPostBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Post Description:</td>
@@ -72,6 +75,8 @@
 					</table>
 				</form>
 			</c:when>
+			
+			
 			<c:otherwise>
 				<div style="font-size: 20px; text-align: center; width: 100%; font-family: sans-serif; margin-top: 100px;">You must be logged in to make a new post.</div>
 				<form action="${pageContext.servletContext.contextPath}/login" method="get">

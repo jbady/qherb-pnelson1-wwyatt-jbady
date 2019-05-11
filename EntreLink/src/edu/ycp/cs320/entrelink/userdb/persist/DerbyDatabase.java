@@ -514,16 +514,21 @@ public class DerbyDatabase implements IDatabase {
 							
 							conn.setAutoCommit(true);
 							
-							stmt1 = conn.prepareStatement("insert into posts (poster_id, timeposted, title, description, posttype) values (?, ?, ?, ?, ?)");
+							stmt1 = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType) values (?, ?, ?, ?, ?)");
 							stmt1.setInt(1, poster_id);
 							stmt1.setString(2, timePosted);
 							stmt1.setString(3, title);
 							stmt1.setString(4, description);
 							stmt1.setInt(5, postType);
+							stmt1.executeUpdate();
 							
-							stmt1.execute();
-							
-							stmt2 = conn.prepareStatement("select * from posts where posts.poster_id = ? and posts.title = ?");
+							//stmt2 = conn.prepareStatement("select * from posts where posts.poster_id = ? and posts.title = ?");
+							stmt2 = conn.prepareStatement(
+									"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
+									"FROM users, posts " + 
+									"WHERE posts.poster_id = ? and posts.title = ?" +
+									"ORDER BY posts.post_id DESC"
+									);
 							
 							stmt2.setInt(1, poster_id);
 							stmt2.setString(2, title);

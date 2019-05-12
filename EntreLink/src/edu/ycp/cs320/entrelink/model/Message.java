@@ -3,12 +3,18 @@ package edu.ycp.cs320.entrelink.model;
 import java.util.Date;
 
 public class Message {
-	
-	private String subject;
-	private String body;
+
+	private int msgId;
 	private int sender;
 	private int recipient;
-	private Date dateSent;
+	private String dateSent;
+	private String subject;
+	private String body;
+	private int read; //1=read; 0=unread
+	
+	// some other variables
+	private String senderName;
+	private String recipientName;
 	
 	public Message() {
 		
@@ -27,8 +33,20 @@ public class Message {
 	public void setRecipient(int recipient) {
 		this.recipient = recipient;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.dateSent = date;
+	}
+	public void setRead(int read) {
+		this.read = read;
+	}
+	public void setMessageId(int id) {
+		this.msgId = id;
+	}
+	public void setRecipientName(String name) {
+		recipientName = name;
+	}
+	public void setSenderName(String name) {
+		senderName = name;
 	}
 	
 	// getters
@@ -44,8 +62,21 @@ public class Message {
 	public int getRecipient() {
 		return this.recipient;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return this.dateSent;
+	}
+	
+	public int getRead() {
+		return this.read;
+	}
+	public int getMessageId() {
+		return this.msgId;
+	}
+	public String getRecipientName() {
+		return this.recipientName;
+	}
+	public String getSenderName() {
+		return this.senderName;
 	}
 	
 }

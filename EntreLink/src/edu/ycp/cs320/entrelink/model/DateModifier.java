@@ -1,5 +1,9 @@
 package edu.ycp.cs320.entrelink.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DateModifier {
 	public DateModifier() {
 		
@@ -17,5 +21,14 @@ public class DateModifier {
 		else if (m == 10) return "October";
 		else if (m == 11) return "November";
 		else			  return "December";
+	}
+	
+	public String getCurrentDate() {
+		DateFormat dateDay = new SimpleDateFormat("dd"); //yyyy/MM/dd HH:mm:ss
+		DateFormat dateMonth = new SimpleDateFormat("MM");
+		DateFormat restOfDate = new SimpleDateFormat("yyyy, hh:mm a");
+		Date d = new Date();
+		String month = getMonth(Integer.parseInt(dateMonth.format(d)));
+		return dateDay.format(d) + " " + month + " " + restOfDate.format(d);
 	}
 }

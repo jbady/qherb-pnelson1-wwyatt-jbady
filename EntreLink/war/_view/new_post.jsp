@@ -46,16 +46,20 @@
 			<c:when test="${! empty loggedInName}">
 				<h2>New Post</h2>
 				<form action="${pageContext.servletContext.contextPath}/new_post" method="post" id="newPostForm">
-					<table id="newPostTable">
-						<tr>
-							<td class="leftTable">Post Type: </td>
-							<td class="rightTable">
-								<select name="postType" value="${postType}">
-									<option>Student Proposal</option>
-									<option>Student Skill</option>
-								</select>
-							</td>
-						</tr>
+					<table id="newPostTable">		
+						<c:choose>
+							<c:when test="${loggedInType != 'Business'}">
+								<tr>
+									<td class="leftTable">Post Type: </td>
+									<td class="rightTable">
+										<select name="postType" value="${postType}">
+											<option>Student Proposal</option>
+											<option>Student Skill</option>
+										</select>
+									</td>
+								</tr>
+							</c:when>
+						</c:choose>
 						<tr>
 							<td class="leftTable">Post Title:</td>
 							<td class="rightTable"><input type="text" name="postTitle" size="30" value="${postTitle}" class="newPostBox"><input hidden type="text" name="loggedInId" size="30" value="${loggedInId}" class="newPostBox"></td>

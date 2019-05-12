@@ -276,3 +276,11 @@ html, body {
 .signupBox {
 	width: 200px;
 }
+
+#messageTable {
+	border:1px solid #A2A2A2;
+	width:50%;
+	text-align:left;
+	border-radius:5px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}

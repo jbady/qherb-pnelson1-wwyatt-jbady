@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 //import java.util.Collections;
 import java.util.List;
+
+import edu.ycp.cs320.entrelink.model.Message;
 import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.model.User;
 import edu.ycp.cs320.sqldemo.DBUtil;
@@ -78,7 +80,7 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 	}
-	
+	// LOAD USERS
 	private void loadUser(User user, ResultSet resultSet, int index) throws SQLException {
 		user.setUserId(resultSet.getInt(index++));
 		user.setUsername(resultSet.getString(index++));
@@ -103,6 +105,17 @@ public class DerbyDatabase implements IDatabase {
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
 		post.setPostType(resultSet.getInt(index++));
+	}
+	
+	private void loadMessage(Message m, ResultSet resultSet, int index) throws SQLException {
+		m.setMessageId(resultSet.getInt(index++));
+		m.setSender(resultSet.getInt(index++));
+		m.setRecipient(resultSet.getInt(index++));
+		m.setDate(resultSet.getString(index++));
+		m.setSubject(resultSet.getString(index++));
+		m.setBody(resultSet.getString(index++));
+		m.setRead(resultSet.getInt(index++));
+		m.setRecipientName(resultSet.getString(index++) + " " + resultSet.getString(index++));
 	}
 	
 	public<ResultType> ResultType executeTransaction(Transaction<ResultType> txn) {
@@ -164,6 +177,7 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				PreparedStatement stmt1 = null;
 				PreparedStatement stmt2 = null;
+				PreparedStatement stmt3 = null;
 				
 				try {
 					stmt1 = conn.prepareStatement(
@@ -200,10 +214,25 @@ public class DerbyDatabase implements IDatabase {
 					);
 					stmt2.executeUpdate();
 					
+					stmt3 = conn.prepareStatement(
+						"create table messages (" +
+						"   msgId integer primary key " +
+						"      generated always as identity (start with 1, increment by 1), " +
+						"   sender integer," +
+						"   recipient integer," +
+						"   dateSent varchar(40)," +
+						"   subject varchar(50)," +
+						"   body varchar(500)," +
+						"   opened integer" +
+						")"
+					);
+					stmt3.executeUpdate();
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(stmt1);
 					DBUtil.closeQuietly(stmt2);
+					DBUtil.closeQuietly(stmt3);
 				}
 			}
 		});
@@ -215,16 +244,19 @@ public class DerbyDatabase implements IDatabase {
 			public Boolean execute(Connection conn) throws SQLException {
 				List<User> userList;
 				List<Post> postList;
+				List<Message> msgList;
 				
 				try {
 					userList = InitialData.getUsers();
 					postList = InitialData.getPosts();
+					msgList = InitialData.getMessages();
 				} catch (IOException e) {
 					throw new SQLException("Couldn't read initial data", e);
 				}
 
 				PreparedStatement insertUser   = null;
 				PreparedStatement insertPost   = null;
+				PreparedStatement insertMessage   = null;
 
 				try {
 					// populate users table
@@ -261,10 +293,28 @@ public class DerbyDatabase implements IDatabase {
 					}
 					insertPost.executeBatch();
 
+					// populate messages table
+					insertMessage = conn.prepareStatement(
+							"insert into messages (sender, recipient, dateSent, subject, body, opened) " +
+							" values (?, ?, ?, ?, ?, ?)");
+					
+					for (Message message : msgList) {
+						insertMessage.setInt(1, message.getSender());
+						insertMessage.setInt(2, message.getRecipient());
+						insertMessage.setString(3, message.getDate());
+						insertMessage.setString(4, message.getSubject());
+						insertMessage.setString(5, message.getBody());
+						insertMessage.setInt(6, message.getRead());
+						insertMessage.addBatch();
+					}
+					
+					insertMessage.executeBatch();
+					
 					return true;
 				} finally {
 					DBUtil.closeQuietly(insertUser);
 					DBUtil.closeQuietly(insertPost);
+					DBUtil.closeQuietly(insertMessage);
 				}
 			}
 		});
@@ -647,5 +697,38 @@ public class DerbyDatabase implements IDatabase {
 			}
 		});
 		
+	}
+	public ArrayList<Message> getAllMessagesForLoggedInUser(int userId) {
+		return executeTransaction(new Transaction<ArrayList<Message>>() {
+			@Override
+			public ArrayList<Message> execute(Connection conn) throws SQLException {
+				ArrayList<Message> messages = new ArrayList<Message>();
+				PreparedStatement stmt = null;
+				ResultSet resultSet = null;							
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement(
+							"SELECT messages.msgId, messages.sender, messages.recipient, messages.dateSent, messages.subject, messages.body, messages.opened, users.firstName, users.lastName " +
+							"FROM messages, users " +
+							"WHERE messages.recipient = ? AND messages.sender = users.user_id " +
+							"ORDER BY messages.msgId DESC"
+							);
+					
+					stmt.setInt(1, userId);
+					resultSet = stmt.executeQuery();
+					
+					while(resultSet.next()) {
+							Message nMessage = new Message();
+							loadMessage(nMessage, resultSet, 1);
+							messages.add(nMessage);
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt);
+				}
+				return messages;
+			}
+		});
 	}
 }

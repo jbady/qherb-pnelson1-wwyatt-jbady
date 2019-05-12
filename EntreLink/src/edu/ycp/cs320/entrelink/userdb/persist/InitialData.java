@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.ycp.cs320.entrelink.model.Message;
 import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.model.User;
 
@@ -69,6 +70,34 @@ public class InitialData {
 			return postList;
 		}finally {
 			readPosts.close();
+		}
+	}
+	
+	public static List<Message> getMessages() throws IOException {
+		List<Message> msgList = new ArrayList<Message>();
+		
+		ReadCSV readMessages = new ReadCSV("msgTable.csv");
+		try {
+			Integer msgID = 1;
+			while(true) {
+				List<String> tuple = readMessages.next();
+				if(tuple == null) {
+					break;
+				}
+				Iterator<String> i = tuple.iterator();
+				Message newMessage = new Message();
+				newMessage.setMessageId(msgID++);
+				newMessage.setSender(Integer.parseInt(i.next()));
+				newMessage.setRecipient(Integer.parseInt(i.next()));
+				newMessage.setDate(i.next());
+				newMessage.setSubject(i.next());
+				newMessage.setBody(i.next());
+				newMessage.setRead(Integer.parseInt(i.next()));
+				msgList.add(newMessage);
+			}
+			return msgList;
+		}finally {
+			readMessages.close();
 		}
 	}
 }

@@ -111,4 +111,8 @@ public class Post {
 		}
 	}
 	
+	public ArrayList<String> separateTags(String tags) {
+		//TODO: make it so that this takes the string of tags (separated by spaces) and returns an ArrayList of tags
+		return null;
+	}
 }

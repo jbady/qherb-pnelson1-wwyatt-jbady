@@ -48,6 +48,8 @@ public class NewPostServlet extends HttpServlet {
 			throws ServletException, IOException {
 	
 		System.out.println("\nNewPostServlet: doPost");
+		HttpSession session=req.getSession();
+		session.getAttribute("loggedInName");
 		
 		// here are some good heckin' variables
 		String	errorMessage	= null;
@@ -61,12 +63,7 @@ public class NewPostServlet extends HttpServlet {
 		
 		// here is the date!
 		DateModifier dmod = new DateModifier();
-		DateFormat dateDay = new SimpleDateFormat("dd"); //yyyy/MM/dd HH:mm:ss
-		DateFormat dateMonth = new SimpleDateFormat("MM");
-		DateFormat restOfDate = new SimpleDateFormat("yyyy, HH:mm a");
-		Date d = new Date();
-		String month = dmod.getMonth(Integer.parseInt(dateMonth.format(d)));
-		String date = dateDay.format(d) + " " + month + " " + restOfDate.format(d);
+		String date = dmod.getCurrentDate();
 		
 		// Decode form parameters and dispatch to controller
 		postTitle 		= req.getParameter("postTitle");
@@ -75,8 +72,12 @@ public class NewPostServlet extends HttpServlet {
 		postType		= req.getParameter("postType");
 		logId			= Integer.parseInt(req.getParameter("loggedInId"));
 		
+		// Gets logged in user type
+		
+		
 		// Set the post type value accordingly...
-		if(postType.equals("Student Skill")) type = 1;
+		if(session.getAttribute("loggedInType").equals("Business")) type = 2;
+		else if(postType.equals("Student Skill")) type = 1;
 		
 		if(postTitle 		== null || postTitle.equals("") 		||
 		   postDescription 	== null || postDescription.equals("") 	||

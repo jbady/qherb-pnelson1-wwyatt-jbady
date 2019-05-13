@@ -84,7 +84,9 @@ public class NewPostServlet extends HttpServlet {
 		   tags 			== null || tags.equals("")) {
 			
 			errorMessage = "Please fill in all of the required fields";
+			session.setAttribute("errorMessage", "ERROR: Please fill in all required fields!");
 		} else {
+			session.setAttribute("errorMessage", "");
 			controller = new PostController();
 			if(controller.createNewPost(logId, date, postTitle, postDescription, type, tags) != null) {
 				System.out.println("Successfully inserted post.");
@@ -92,6 +94,7 @@ public class NewPostServlet extends HttpServlet {
 			else {
 				System.out.println("Post was not successfully inserted. Check your code, you butt.");
 			}
+
 		}
 		
 		req.setAttribute("postTitle", postTitle);
@@ -99,7 +102,7 @@ public class NewPostServlet extends HttpServlet {
 		req.setAttribute("tags", tags);
 		
 		// Forward to view to render the result HTML document
-		req.getRequestDispatcher("/_view/projects.jsp").forward(req, resp);
+		req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 		
 	}
 }

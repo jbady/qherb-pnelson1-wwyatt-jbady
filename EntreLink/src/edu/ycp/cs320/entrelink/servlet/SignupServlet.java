@@ -80,6 +80,14 @@ public class SignupServlet extends HttpServlet {
 			// otherwise, sign the user up
 			if(!doesUserExist && areEmailsSame && arePasswordsSame && isEmailValid) {
 				// not sure what to put in here yet
+				
+				if(controller.createNewUser(newUsername, newPassword, firstname, lastname, newEmail, accountType) != null) {
+					System.out.println("Successfully inserted user.");
+				}
+				else {
+					System.out.println("User was not successfully inserted. Check your code, you butt.");
+				}
+				
 				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 			}
 		

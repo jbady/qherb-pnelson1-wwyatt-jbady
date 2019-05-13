@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 public class User {
 	
+	// initial values
 	private String username;
 	private String password;
 	private String userFirstName;
 	private String userLastName;
 	private String email;
 	private int userId;
+	
+	// user-customizable values
 	private String profilePic;
 	private String website;
 	private String bio;
@@ -17,45 +20,21 @@ public class User {
 	private String major;
 	private String status;
 	private String interests;
-	private String skills;
-	private ArrayList<Message> messages;	
+	private String skills;	
 	
 	public User() {
 	}
 	
 	public User(String username, String password, String userFirstName, String userLastName, String email,
-			String userType, String bio, String major, String status, String interest, String skills) {
+			String userType) {
 		this.username = username;
 		this.password = password;
 		this.userFirstName = userFirstName;
 		this.userLastName = userLastName;
 		this.email = email;
 		this.userType = userType;
-		this.bio = bio;
-		this.major = major;
-		this.status = status;
-		this.interests = interest;
-		this.skills = skills;
 		profilePic = "https://imgur.com/a/HmmZUYX";
-		messages = new ArrayList<Message>();
 	}
-	
-	private void delMessage(int index) {
-		messages.remove(index);
-	}
-	
-	private Message viewMessage(int index) {
-		return messages.get(index);
-	}
-	
-	private void addMessage(Message message) {
-		messages.add(message);
-	}
-	
-	private void setMessages(ArrayList<Message> messages) {
-		this.messages = messages;
-	}
-	
 	public void setBio(String bio) {
 		this.bio = bio;
 	}

@@ -15,7 +15,7 @@ public interface IDatabase {
 	public ArrayList<Post> findPostsByTitle(String title);
 	public ArrayList<Post> findPostsByUserName(String name);
 	public ArrayList<Post> findAllPosts();
-	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType);
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType, String tags);
 	public ArrayList<Post> findAllBusinessPosts();
 	public Boolean deleteSinglePost(int poster_id, String title);
 	public Boolean deleteAllUserPosts(int poster_id);

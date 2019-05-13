@@ -51,8 +51,10 @@ public class FakeDatabase implements IDatabase {
 		
 		ArrayList<Post> postsContainingTags = new ArrayList<Post>();
 		
-		for(int i = 0; i < postList.size(); i++) {
-			ArrayList<String> tagsInPosts = postList.get(i).getTags();
+		// This is no longer working because I updated the tags functions
+		
+		/*for(int i = 0; i < postList.size(); i++) {
+			String tagsInPosts = postList.get(i).getTags();
 			for(int j = 0; j < tagsInPosts.size(); j++) {
 				for(int k = 0; k < tags.size(); k++) {
 					if(tagsInPosts.get(j).toLowerCase().equals(tags.get(k).toLowerCase())) {
@@ -60,7 +62,7 @@ public class FakeDatabase implements IDatabase {
 					}
 				}
 			}
-		}
+		}*/
 		return postsContainingTags;
 	}
 	
@@ -115,7 +117,7 @@ public class FakeDatabase implements IDatabase {
 	}
 
 	@Override
-	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType) {
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType, String tags) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -130,7 +132,6 @@ public class FakeDatabase implements IDatabase {
 	public Boolean deleteSinglePost(int poster_id, String title) {
 		return null;
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

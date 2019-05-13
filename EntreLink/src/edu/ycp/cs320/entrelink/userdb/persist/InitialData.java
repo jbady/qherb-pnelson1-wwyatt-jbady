@@ -65,6 +65,7 @@ public class InitialData {
 				newPost.setTitle(i.next());
 				newPost.setDescription(i.next());
 				newPost.setPostType(Integer.parseInt(i.next()));
+				newPost.setTags(i.next());
 				postList.add(newPost);
 			}
 			return postList;

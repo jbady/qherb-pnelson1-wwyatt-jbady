@@ -52,14 +52,16 @@ public class PostControllerTest {
 		tPost.setPosterId(1);
 		tPost.setTimePosted("5 April 2019, 08:01 pm");
 		tPost.setPostType(0);
+		tPost.setTags("testing corn soup");
 		
-		Post tNewPost = controller.createNewPost(tPost.getPosterId(), tPost.getTimePosted(), tPost.getTitle(), tPost.getDescription(), tPost.getPostType());
+		Post tNewPost = controller.createNewPost(tPost.getPosterId(), tPost.getTimePosted(), tPost.getTitle(), tPost.getDescription(), tPost.getPostType(), tPost.getTags());
 		
 		assertEquals(tPost.getDescription(), tNewPost.getDescription());
 		assertEquals(tPost.getTitle(), tNewPost.getTitle());
 		assertEquals(tPost.getPosterId(), tNewPost.getPosterId());
 		assertEquals(tPost.getTimePosted(), tNewPost.getTimePosted());
 		assertEquals(tPost.getPostType(), tNewPost.getPostType());
+		assertEquals(tPost.getTags(), tNewPost.getTags());
 		
 		controller.deleteSinglePost(tNewPost.getPosterId(), tNewPost.getTitle());
 	}
@@ -87,9 +89,9 @@ public class PostControllerTest {
 		tPost3.setTimePosted("5 April 2019, 08:01 pm");
 		tPost3.setPostType(0);
 		
-		controller.createNewPost(tPost1.getPosterId(), tPost1.getTimePosted(), tPost1.getTitle(), tPost1.getDescription(), tPost1.getPostType());
-		controller.createNewPost(tPost2.getPosterId(), tPost2.getTimePosted(), tPost2.getTitle(), tPost2.getDescription(), tPost2.getPostType());
-		controller.createNewPost(tPost3.getPosterId(), tPost3.getTimePosted(), tPost3.getTitle(), tPost3.getDescription(), tPost3.getPostType());
+		controller.createNewPost(tPost1.getPosterId(), tPost1.getTimePosted(), tPost1.getTitle(), tPost1.getDescription(), tPost1.getPostType(), "");
+		controller.createNewPost(tPost2.getPosterId(), tPost2.getTimePosted(), tPost2.getTitle(), tPost2.getDescription(), tPost2.getPostType(), "");
+		controller.createNewPost(tPost3.getPosterId(), tPost3.getTimePosted(), tPost3.getTitle(), tPost3.getDescription(), tPost3.getPostType(), "");
 		
 		ArrayList<Post> jPosts = controller.searchPostsByUserName("jbady");
 		
@@ -101,7 +103,7 @@ public class PostControllerTest {
 		
 		assertEquals(jPosts.size(), 5);
 		
-		controller.createNewPost(jPosts.get(0).getPosterId(), jPosts.get(0).getTimePosted(), jPosts.get(0).getTitle(), jPosts.get(0).getDescription(), jPosts.get(0).getPostType());
-		controller.createNewPost(jPosts.get(1).getPosterId(), jPosts.get(1).getTimePosted(), jPosts.get(1).getTitle(), jPosts.get(1).getDescription(), jPosts.get(1).getPostType());
+		controller.createNewPost(jPosts.get(0).getPosterId(), jPosts.get(0).getTimePosted(), jPosts.get(0).getTitle(), jPosts.get(0).getDescription(), jPosts.get(0).getPostType(), "");
+		controller.createNewPost(jPosts.get(1).getPosterId(), jPosts.get(1).getTimePosted(), jPosts.get(1).getTitle(), jPosts.get(1).getDescription(), jPosts.get(1).getPostType(), "");
 	}
 }

@@ -16,11 +16,11 @@ public class UserController {
 	User newUser;
 	
 	public User createNewUser(String username, String password, String userFirstName, String userLastName, String email,
-			String userType, String bio, String major, String status, String interest, String skills) {
+			String userType) {
 		
 			System.out.print("user '" + username + "' is being inserted");
 			
-			newUser = db.insertNewUser(username, password, userFirstName, userLastName, email, userType, bio, major, status, interest, skills);
+			newUser = db.insertNewUser(username, password, userFirstName, userLastName, email, userType);
 			if(newUser.getEmail()!= null) {
 				model = newUser;
 				System.out.print("user '" + username + "' has been inputed");

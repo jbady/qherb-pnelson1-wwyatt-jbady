@@ -60,4 +60,21 @@ public class SignupController {
 		return model;
 	}
 	
+	public User createNewUser(String username, String password, String userFirstName, String userLastName, String email, String userType) {
+		User user = new User();
+		
+		System.out.println("Inserting new user...");
+		
+		user = db.insertNewUser(username, password, userFirstName, userLastName, email, userType);
+		
+		if(user == null) {
+			System.out.println("Post was NOT inserted. You wrote bad code.");
+		}
+		else {
+			System.out.println("Successfully inserted '" + userFirstName + " " + userLastName + "' as a new user.");
+		}
+		
+		return user;
+	}
+	
 }

@@ -86,7 +86,7 @@ public class NewPostServlet extends HttpServlet {
 			errorMessage = "Please fill in all of the required fields";
 		} else {
 			controller = new PostController();
-			if(controller.createNewPost(logId, date, postTitle, postDescription, type) != null) {
+			if(controller.createNewPost(logId, date, postTitle, postDescription, type, tags) != null) {
 				System.out.println("Successfully inserted post.");
 			}
 			else {

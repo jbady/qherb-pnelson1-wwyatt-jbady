@@ -28,7 +28,7 @@ public class ProjectServlet extends HttpServlet {
 
 		//posts most recent things
 		ArrayList<Post> posts = null;
-		String errorMessage       = null;
+		String errorMessage   = null;
 
 		controller = new AllPostsController();
 

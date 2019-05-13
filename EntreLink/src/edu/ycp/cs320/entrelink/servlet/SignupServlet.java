@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.entrelink.controller.LoginController;
 import edu.ycp.cs320.entrelink.controller.SignupController;
-import edu.ycp.cs320.entrelink.model.NewUser;
 import edu.ycp.cs320.entrelink.model.User;
 
 public class SignupServlet extends HttpServlet {
@@ -51,14 +50,14 @@ public class SignupServlet extends HttpServlet {
 			String lastname = req.getParameter("lastname");
 			String accountType = req.getParameter("accountType");
 			
-			NewUser model = new NewUser(newUsername, newEmail, confirmEmail, newPassword, confirmPassword, firstname, lastname, accountType);
+			User model = new User(newUsername, newPassword, firstname, lastname, newEmail, accountType);
 			SignupController controller = new SignupController();
 			controller.setModel(model);
 
 			// check for errors in the form data before using is in a calculation
 			boolean doesUserExist = controller.verifyIsNewUser();
-			boolean areEmailsSame = controller.verifyEmailsAreSame();
-			boolean arePasswordsSame = controller.verifyPasswordsAreSame();
+			boolean areEmailsSame = newEmail.equals(confirmEmail);
+			boolean arePasswordsSame = newPassword.equals(confirmPassword);
 			boolean isEmailValid = controller.verifyEmailIsValid();
 			if(doesUserExist) {
 				System.out.println("User already exists.");

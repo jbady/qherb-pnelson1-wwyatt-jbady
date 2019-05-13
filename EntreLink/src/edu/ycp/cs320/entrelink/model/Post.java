@@ -1,6 +1,7 @@
 package edu.ycp.cs320.entrelink.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Post {
 	
@@ -112,7 +113,8 @@ public class Post {
 	}
 	
 	public ArrayList<String> separateTags(String tags) {
-		//TODO: make it so that this takes the string of tags (separated by spaces) and returns an ArrayList of tags
-		return null;
+		String[] list = tags.split(" ");
+		ArrayList<String> aList = new ArrayList<String>(Arrays.asList(list));
+		return aList;
 	}
 }

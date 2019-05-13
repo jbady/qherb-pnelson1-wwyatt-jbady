@@ -76,10 +76,9 @@
 						<tr>
 							<td>I am a:</td>
 							<td>
-								<select style="width: 200px; text-align: center;">
+								<select style="width: 200px; text-align: center;" name="accountType" value="${accountType}">
 									<option style="text-align: center;">Student</option>
 									<option style="text-align: center;">Business</option>
-									<option style="text-align: center;">BD Consultant</option>
 								</select>
 							</td>
 						</tr>

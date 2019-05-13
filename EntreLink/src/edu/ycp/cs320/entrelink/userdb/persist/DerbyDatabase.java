@@ -425,7 +425,7 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
-			String userType, String bio, String major, String status, String interest, String skills) {
+			String userType) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<User>() {
 			@Override
@@ -448,11 +448,11 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setString(6, userType);
 					stmt.setString(7, "https://i.imgur.com/46FYTE7.png");
 					stmt.setString(8, "N/A");
-					stmt.setString(9, bio);
-					stmt.setString(10, major);
-					stmt.setString(11, status);
-					stmt.setString(12, interest);
-					stmt.setString(13, skills);
+					stmt.setString(9, "N/A");
+					stmt.setString(10, "N/A");
+					stmt.setString(11, "N/A");
+					stmt.setString(12, "N/A");
+					stmt.setString(13, "N/A");
 					
 					stmt.execute();
 					
@@ -469,8 +469,13 @@ public class DerbyDatabase implements IDatabase {
 
 					if(resultSet.next()==true) {
 						System.out.println("user has been created");
-						nUser = new User(username, password, userFirstName, userLastName, email, 
-								userType, bio, major, status, interest, skills);
+						nUser = new User();
+						nUser.setUsername(username);
+						nUser.setPassword(password);
+						nUser.setUserFirstName(userFirstName);
+						nUser.setUserLastName(userLastName);
+						nUser.setEmail(email);
+						nUser.setUserType(userType);
 					}
 				}finally {
 					DBUtil.closeQuietly(resultSet);

@@ -105,7 +105,7 @@ public class FakeDatabase implements IDatabase {
 
 	@Override
 	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
-			String userType,	String bio, String major, String status, String interest, String skills) {
+			String userType) {
 		// TODO Auto-generated method stub
 		return null;
 	}

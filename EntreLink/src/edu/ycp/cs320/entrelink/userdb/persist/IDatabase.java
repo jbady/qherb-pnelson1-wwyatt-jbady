@@ -9,7 +9,7 @@ import edu.ycp.cs320.entrelink.model.User;
 public interface IDatabase {
 	public User findUserByEmailOrUsername(String username);
 	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
-			String userType,	String bio, String major, String status, String interest, String skills);
+			String userType);
 	public User changeUserBio(String username, String bio);
 	public ArrayList<Post> findPostsByTags(ArrayList<String> tags);
 	public ArrayList<Post> findPostsByTitle(String title);

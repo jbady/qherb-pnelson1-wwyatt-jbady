@@ -52,6 +52,78 @@ public class UserControllerTest {
 		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
 		assertEquals("JAdoe", JAdoe.getUsername());
 		
+		controller.deleteUser(JAdoe.getUsername(), JAdoe.getEmail());
+	}
+	
+	@Test
+	public void testChangeUserBio(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserBio(JAdoe.getUsername(), "THIS IS A TEST BIO");
 		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getBio(), "THIS IS A TEST BIO");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
+	}
+	
+	@Test
+	public void testChangeUserPic(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserPic(JAdoe.getUsername(), "THIS IS A TEST PIC");
+		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getProfilePic(), "THIS IS A TEST PIC");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
+	}
+	@Test
+	public void testChangeUserWebsite(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserWebsite(JAdoe.getUsername(), "THIS IS A TEST WEBSITE");
+		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getWebsite(), "THIS IS A TEST WEBSITE");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
+	}
+	@Test
+	public void testChangeUserMajor(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserMajor(JAdoe.getUsername(), "THIS IS A TEST MAJOR");
+		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getMajor(), "THIS IS A TEST MAJOR");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
+	}
+	@Test
+	public void testChangeUserStatus(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserStatus(JAdoe.getUsername(), "THIS IS A TEST STATUS");
+		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getStatus(), "THIS IS A TEST STATUS");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
+	}
+	@Test
+	public void testChangeUserInterest(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserInterests(JAdoe.getUsername(), "THIS IS A TEST INTEREST");
+		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getInterests(), "THIS IS A TEST INTEREST");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
+	}
+	@Test
+	public void testChangeUserSkills(){
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User testUser = controller.editUserSkills(JAdoe.getUsername(), "THIS IS A TEST SKILLS");
+		
+		assertEquals(testUser.getUsername(), JAdoe.getUsername());
+		assertEquals(testUser.getSkills(), "THIS IS A TEST SKILLS");
+		
+		controller.deleteUser(testUser.getUsername(), testUser.getEmail());
 	}
 }

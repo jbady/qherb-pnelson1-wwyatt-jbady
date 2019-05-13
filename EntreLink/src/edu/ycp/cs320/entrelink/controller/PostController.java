@@ -1,6 +1,7 @@
 package edu.ycp.cs320.entrelink.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.ycp.cs320.entrelink.model.Post;
 import edu.ycp.cs320.entrelink.userdb.persist.DerbyDatabase;
@@ -73,5 +74,31 @@ public class PostController {
 		}else {
 			System.out.println("posts were not deleted");
 		}
+	}
+	public ArrayList<Post> getAllPosts(String postType) {
+		
+		List<Post> postList;
+		
+		if (postType.equals("student")) {
+			postList = db.findAllPosts();
+		}
+		else {
+			postList = db.findAllBusinessPosts();
+		}
+		
+		ArrayList<Post> posts = null;
+		if (postList.isEmpty()) {
+			System.out.println("No posts found in library");
+			return null;
+		}
+		else {
+			posts = new ArrayList<Post>();
+			for (Post post : postList) {
+				posts.add(post);
+			}			
+		}
+		
+		// return authors for this title
+		return posts;
 	}
 }

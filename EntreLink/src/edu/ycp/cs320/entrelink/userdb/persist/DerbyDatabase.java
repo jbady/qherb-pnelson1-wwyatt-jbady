@@ -646,6 +646,29 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
+	public Boolean deleteUser(String username, String email) {
+		return executeTransaction(new Transaction<Boolean>() {
+			@Override
+			public Boolean execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				
+				try {
+					
+					conn.setAutoCommit(true);
+					
+					stmt = conn.prepareStatement("delete from users where users.username = ? and users.email = ?");
+					
+					stmt.setString(1, username);
+					stmt.setString(2, email);
+					
+					return stmt.execute();
+				}finally {
+					DBUtil.closeQuietly(stmt);
+				}
+			}
+		});
+	}
+	@Override
 	public User changeUserBio(String username, String bio) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<User>() {
@@ -665,11 +688,15 @@ public class DerbyDatabase implements IDatabase {
 					stmt1.setString(1, username);
 					
 					resultSet = stmt1.executeQuery();
+					if(resultSet.next()) {
+						
 					
-					stmt = conn.prepareStatement("update posts set bio = ? where poster_id = ?");
+						stmt = conn.prepareStatement("update users set userbio = ? where user_id = ?");
 					
-					stmt.setString(1, bio);
-					stmt.setInt(2, resultSet.getInt(0));
+						stmt.setString(1, bio);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}
 				}finally{
 					DBUtil.closeQuietly(resultSet);
 					DBUtil.closeQuietly(stmt1);
@@ -730,5 +757,343 @@ public class DerbyDatabase implements IDatabase {
 				return messages;
 			}
 		});
+	}
+	@Override
+	public User changeUserPic(String username, String pic) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					if(resultSet.next()) {
+						stmt = conn.prepareStatement("update users set userpic = ? where user_id = ?");
+						
+						stmt.setString(1, pic);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}
+					
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+		
+	}
+
+	@Override
+	public User changeUserWebsite(String username, String website) {
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					
+					if(resultSet.next()) {
+						stmt = conn.prepareStatement("update users set usersite = ? where user_id = ?");
+						
+						stmt.setString(1, website);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+		
+	}
+	@Override
+	public User changeUserMajor(String username, String major) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					
+					if(resultSet.next()) {
+						
+						stmt = conn.prepareStatement("update users set usermajor = ? where user_id = ?");
+					
+						stmt.setString(1, major);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+		
+	}
+	@Override
+	public User changeUserStatus(String username, String status) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					
+					if(resultSet.next()) {
+						stmt = conn.prepareStatement("update users set userstatus = ? where user_id = ?");
+					
+						stmt.setString(1, status);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}
+					
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+		
+	}
+	@Override
+	public User changeUserInterests(String username, String interests) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					
+					if(resultSet.next()) {
+						stmt = conn.prepareStatement("update users set userinterests = ? where user_id = ?");
+						stmt.setString(1, interests);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}					
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+		
+	}
+	@Override
+	public User changeUserSkills(String username, String skills) {
+		// TODO Auto-generated method stub
+		return executeTransaction(new Transaction<User>() {
+			@Override
+			public User execute(Connection conn) throws SQLException {
+				PreparedStatement stmt = null;
+				PreparedStatement stmt1 = null;
+				ResultSet resultSet = null;
+				ResultSet resultSet2 = null;
+				PreparedStatement stmt2 = null;
+				
+				try {
+					conn.setAutoCommit(true);
+					
+					stmt1 = conn.prepareStatement("select user_id from users where username = ?");
+					
+					stmt1.setString(1, username);
+					
+					resultSet = stmt1.executeQuery();
+					
+					if(resultSet.next()) {
+						stmt = conn.prepareStatement("update users set userskills = ? where user_id = ?");
+						
+						stmt.setString(1, skills);
+						stmt.setInt(2, resultSet.getInt(1));
+						stmt.execute();
+					}
+					
+				}finally{
+					DBUtil.closeQuietly(resultSet);
+					DBUtil.closeQuietly(stmt1);
+					DBUtil.closeQuietly(stmt);
+				}
+				try {
+					conn.setAutoCommit(true);
+					stmt2 = conn.prepareStatement("select * from users where username = ?");
+					
+					stmt2.setString(1, username);
+					
+					resultSet2 = stmt2.executeQuery();
+					
+					if(resultSet2.next()) {
+						User nUser = new User();
+						loadUser(nUser, resultSet2, 1);
+						return nUser;
+					}else {
+						return null;
+					}
+				}finally {
+					DBUtil.closeQuietly(resultSet2);
+					DBUtil.closeQuietly(stmt2);
+				}
+			}
+		});
+		
 	}
 }

@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import edu.ycp.cs320.entrelink.controller.AllPostsController;
+import edu.ycp.cs320.entrelink.controller.PostController;
 import edu.ycp.cs320.entrelink.model.Post;
 
 public class ProjectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private AllPostsController controller = null;	
+	private PostController controller = null;	
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -30,7 +30,7 @@ public class ProjectServlet extends HttpServlet {
 		ArrayList<Post> posts = null;
 		String errorMessage       = null;
 
-		controller = new AllPostsController();
+		controller = new PostController();
 
 		// get list of posts returned from query
 		posts = controller.getAllPosts("student");

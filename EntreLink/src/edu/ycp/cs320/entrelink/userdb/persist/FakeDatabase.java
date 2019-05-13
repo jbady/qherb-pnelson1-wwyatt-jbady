@@ -146,6 +146,48 @@ public class FakeDatabase implements IDatabase {
 		return null;
 	}
 
+	@Override
+	public User changeUserPic(String username, String pic) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User changeUserWebsite(String username, String website) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User changeUserMajor(String username, String major) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User changeUserStatus(String username, String status) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User changeUserInterests(String username, String interests) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User changeUserSkills(String username, String skills) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean deleteUser(String username, String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

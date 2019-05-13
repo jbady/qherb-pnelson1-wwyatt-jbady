@@ -8,14 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.ycp.cs320.entrelink.controller.AllPostsController;
+import edu.ycp.cs320.entrelink.controller.PostController;
 import edu.ycp.cs320.entrelink.model.Post;
 
 
 public class AllPostsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private AllPostsController controller = null;	
+	private PostController controller = null;	
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -49,7 +49,7 @@ public class AllPostsServlet extends HttpServlet {
 		ArrayList<Post> posts = null;
 		String errorMessage       = null;
 
-		controller = new AllPostsController();
+		controller = new PostController();
 
 		// get list of authors returned from query
 		posts = controller.getAllPosts("student");

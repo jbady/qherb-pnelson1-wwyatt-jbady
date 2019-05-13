@@ -62,8 +62,12 @@
 				<td class="leftTable">Skills: </td>
 				<td class="rightTable">${loggedInSkills}</td>
 			</tr>
-
+			<tr>
+				<td class="leftTable">WebSite: </td>
+				<td class="rightTable"><a href="${loggedInWebsite}">${loggedInWebsite}</a></td>
+			</tr>
 		</table>
+		<input type="Submit" name="editProfile" value="Edit Profile">
 		<h3>My Projects</h3>
 		<c:forEach items="${posts}" var="post">
 			<div postId="${post.postId}" class="listingPost">

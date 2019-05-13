@@ -32,6 +32,10 @@
 		</form>
 		<form action="${pageContext.servletContext.contextPath}/search" method="openSearch">
 			<input type="Submit" name="viewSearch" value="Search" class="navLink" style="float: right;">
+			<select name="searchIndex" value="Users" class="navLink" style="float: right;">
+				<option>Users</option>
+				<option>Projects</option>
+			</select>
 			<input type="text" name="searchText" id="searchBox">
 		</form>
 	</div>
@@ -67,11 +71,11 @@
 						</tr>
 						<tr>
 							<td class="leftTable">Password: </td>
-							<td class="rightTable"><input type="text" name="newPassword" size="12" value="${newPassword}" class="signupBox"></td>
+							<td class="rightTable"><input type="password" name="newPassword" size="12" value="${newPassword}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td class="leftTable">Confirm Password: </td>
-							<td class="rightTable"><input type="text" name="confirmPassword" size="12" value="${confirmPassword}" class="signupBox"></td>
+							<td class="rightTable"><input type="password" name="confirmPassword" size="12" value="${confirmPassword}" class="signupBox"></td>
 						</tr>
 						<tr>
 							<td>I am a:</td>

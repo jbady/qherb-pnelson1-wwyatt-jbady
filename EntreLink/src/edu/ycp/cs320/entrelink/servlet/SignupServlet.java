@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.ycp.cs320.entrelink.controller.LoginController;
 import edu.ycp.cs320.entrelink.controller.SignupController;
+import edu.ycp.cs320.entrelink.controller.UserController;
 import edu.ycp.cs320.entrelink.model.NewUser;
 import edu.ycp.cs320.entrelink.model.User;
 
@@ -79,8 +80,11 @@ public class SignupServlet extends HttpServlet {
 			
 			// otherwise, sign the user up
 			if(!doesUserExist && areEmailsSame && arePasswordsSame && isEmailValid) {
-				// not sure what to put in here yet
-				req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
+				UserController uController = new UserController();
+				uController.createNewUser(model.getNewUsername(), model.getConfirmPassword(),
+						model.getFirstname(), model.getLastname(), model.getConfirmEmail(), model.getAccoutType(),
+						"N/A", "N/A", "N/A", "N/A", "N/A");
+				req.getRequestDispatcher("/_view/login.jsp").forward(req, resp);
 			}
 		
 	}

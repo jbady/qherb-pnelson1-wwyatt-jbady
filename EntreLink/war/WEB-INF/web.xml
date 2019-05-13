@@ -42,6 +42,10 @@
     <servlet-name>NewMessageServlet</servlet-name>
     <servlet-class>edu.ycp.cs320.entrelink.servlet.NewMessageServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>EditUserServlet</servlet-name>
+    <servlet-class>edu.ycp.cs320.entrelink.servlet.EditUserServlet</servlet-class>
+  </servlet>
 
   <!-- Servlet mappings -->
   <servlet-mapping>
@@ -79,6 +83,10 @@
   <servlet-mapping>
     <servlet-name>NewMessageServlet</servlet-name>
     <url-pattern>/newmessage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EditUserServlet</servlet-name>
+    <url-pattern>/edituser</url-pattern>
   </servlet-mapping>
   
   <welcome-file-list>

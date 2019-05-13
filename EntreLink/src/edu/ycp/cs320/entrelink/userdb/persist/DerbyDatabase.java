@@ -100,7 +100,6 @@ public class DerbyDatabase implements IDatabase {
 	private void loadPost(Post post, ResultSet resultSet, int index) throws SQLException {
 		post.setPostId(resultSet.getInt(index++));
 		post.setPosterId(resultSet.getInt(index++));
-		post.setName(resultSet.getString(index++), resultSet.getString(index++));
 		post.setTimePosted(resultSet.getString(index++));
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
@@ -495,7 +494,7 @@ public class DerbyDatabase implements IDatabase {
 					stmt = conn.prepareStatement(
 							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
 							"FROM users, posts " + 
-							"WHERE users.user_id = posts.poster_id AND (posts.postType = 0 OR posts.postType = 1)" +
+							"WHERE users.user_id = posts.poster_id AND (posts.postType = 0 OR posts.postType = 1) " +
 							"ORDER BY posts.post_id DESC"
 							);
 					
@@ -503,7 +502,14 @@ public class DerbyDatabase implements IDatabase {
 					
 					while(resultSet.next()) {
 							Post nPost = new Post();
-							loadPost(nPost, resultSet, 1);
+							int index =1;
+							nPost.setPostId(resultSet.getInt(index++));
+							nPost.setPosterId(resultSet.getInt(index++));
+							nPost.setName(resultSet.getString(index++), resultSet.getString(index++));
+							nPost.setTimePosted(resultSet.getString(index++));
+							nPost.setTitle(resultSet.getString(index++));
+							nPost.setDescription(resultSet.getString(index++));
+							nPost.setPostType(resultSet.getInt(index++));
 							posts.add(nPost);
 					}
 				}finally {
@@ -536,9 +542,16 @@ public class DerbyDatabase implements IDatabase {
 					resultSet = stmt.executeQuery();
 					
 					while(resultSet.next()) {
-							Post nPost = new Post();
-							loadPost(nPost, resultSet, 1);
-							posts.add(nPost);
+						Post nPost = new Post();
+						int index =1;
+						nPost.setPostId(resultSet.getInt(index++));
+						nPost.setPosterId(resultSet.getInt(index++));
+						nPost.setName(resultSet.getString(index++), resultSet.getString(index++));
+						nPost.setTimePosted(resultSet.getString(index++));
+						nPost.setTitle(resultSet.getString(index++));
+						nPost.setDescription(resultSet.getString(index++));
+						nPost.setPostType(resultSet.getInt(index++));
+						posts.add(nPost);
 					}
 				}finally {
 					DBUtil.closeQuietly(resultSet);
@@ -574,8 +587,8 @@ public class DerbyDatabase implements IDatabase {
 							
 							//stmt2 = conn.prepareStatement("select * from posts where posts.poster_id = ? and posts.title = ?");
 							stmt2 = conn.prepareStatement(
-									"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
-									"FROM users, posts " + 
+									"SELECT * " + 
+									"FROM  posts " + 
 									"WHERE posts.poster_id = ? and posts.title = ?" +
 									"ORDER BY posts.post_id DESC"
 									);

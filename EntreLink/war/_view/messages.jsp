@@ -32,6 +32,10 @@
 		</form>
 		<form action="${pageContext.servletContext.contextPath}/search" method="openSearch">
 			<input type="Submit" name="viewSearch" value="Search" class="navLink" style="float: right;">
+			<select name="searchIndex" value="Users" class="navLink" style="float: right;">
+				<option>Users</option>
+				<option>Projects</option>
+			</select>
 			<input type="text" name="searchText" id="searchBox">
 		</form>
 	</div>

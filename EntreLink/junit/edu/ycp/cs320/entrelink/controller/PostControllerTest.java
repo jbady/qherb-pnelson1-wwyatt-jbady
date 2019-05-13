@@ -39,7 +39,7 @@ public class PostControllerTest {
 		assertEquals(jPosts.size(), 2);
 		assertEquals(jPosts.get(0).getTitle(), "Two-legged Chair");
 		assertEquals(jPosts.get(1).getTimePosted(), "05 May 2019, 10:52 pm");
-		assertEquals(pPosts.size(), 1);
+		assertEquals(pPosts.size(), 2);
 		assertEquals(pPosts.get(0).getTitle(), "Corn Simulator");
 		assertEquals(pPosts.get(0).getTimePosted(), "12 April 2019, 12:27 pm");
 	}

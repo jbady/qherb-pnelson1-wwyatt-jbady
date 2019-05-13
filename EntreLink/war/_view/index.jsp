@@ -57,9 +57,17 @@
 						<div postId="${post.postId}" class="listingPost">
 	            			<h3 class="projectTitle">${post.title}<span class="projectPosted"> posted by ${post.name} on ${post.timePosted}</span></h3>
 	            			<div class="hideOverflow">
-							<p class="projectDescription">${post.description}</p>
+								<p class="projectDescription">${post.description}</p>
+								
+		            			<table style="width:100%">
+		            				<tr>
+										<td><p class="projectTags">Tags: ${post.tags}</p></td>
+										<td style="text-align:right"><form action="${pageContext.servletContext.contextPath}/newmessage" method="compMessage">
+											<input type="Submit" name="${post.name}" value="Message Student" class="msgUser">
+										</form></td>
+									</tr>
+								</table>
 	            			</div>
-							<a href="#">Read More</a>
 	        			</div>
 	    			</c:forEach>
 				</td>
@@ -69,8 +77,17 @@
 	            			<h3 class="projectTitle">${bPost.title}<span class="projectPosted"> posted by ${bPost.name} on ${bPost.timePosted}</span></h3>
 	            			<div class="hideOverflow">
 							<p class="projectDescription">${bPost.description}</p>
+							
+							<table style="width:100%">
+	            				<tr>
+									<td><p class="projectTags">Tags: ${bPost.tags}</p></td>
+									<td style="text-align:right"><form action="${pageContext.servletContext.contextPath}/newmessage" method="compMessage">
+										<input type="Submit" name="${bPost.name}" value="Message Business" class="msgUser">
+									</form></td>
+								</tr>
+							</table>
+							
 	            			</div>
-							<a href="#">Read More</a>
 	        			</div>
 	    			</c:forEach>
 				</td>

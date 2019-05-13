@@ -49,7 +49,7 @@ public class UserControllerTest {
 		//db.createTables();
 		model.setEmail("JAdoe@gmail.com");
 		model.setPassword("theMrs");
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		assertEquals("JAdoe", JAdoe.getUsername());
 		
 		

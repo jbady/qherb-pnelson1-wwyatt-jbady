@@ -74,6 +74,7 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("loggedInWebsite", controller.getModel().getWebsite());
 				session.setAttribute("loggedInId", controller.getModel().getUserId());
 				session.setAttribute("loggedInType", controller.getModel().getUserType());
+				session.setAttribute("errorMessage", "");
 		        req.getRequestDispatcher("/_view/index.jsp").forward(req, resp);
 			}
 		

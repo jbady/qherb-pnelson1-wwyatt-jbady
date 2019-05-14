@@ -104,6 +104,7 @@ public class DerbyDatabase implements IDatabase {
 		post.setTitle(resultSet.getString(index++));
 		post.setDescription(resultSet.getString(index++));
 		post.setPostType(resultSet.getInt(index++));
+		post.setTags(resultSet.getString(index++));
 	}
 	
 	private void loadMessage(Message m, ResultSet resultSet, int index) throws SQLException {
@@ -208,7 +209,8 @@ public class DerbyDatabase implements IDatabase {
 						"	timePosted varchar(40)," +
 						"	title varchar(50)," +
 						"	description varchar(1000)," +
-						"	postType integer" +
+						"	postType integer," +
+						"   tags varchar(200)" +
 						")"
 					);
 					stmt2.executeUpdate();
@@ -280,14 +282,15 @@ public class DerbyDatabase implements IDatabase {
 					insertUser.executeBatch();
 					
 					// populate posts table
-					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType) "
-							+ " values (?, ?, ?, ?, ?)");
+					insertPost = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType, tags) "
+							+ " values (?, ?, ?, ?, ?, ?)");
 					for (Post post : postList) {
 						insertPost.setInt(1, post.getPosterId());
 						insertPost.setString(2, post.getTimePosted());
 						insertPost.setString(3, post.getTitle());
 						insertPost.setString(4, post.getDescription());
 						insertPost.setInt(5, post.getPostType());
+						insertPost.setString(6,  post.getTags());
 						insertPost.addBatch();
 					}
 					insertPost.executeBatch();
@@ -421,7 +424,7 @@ public class DerbyDatabase implements IDatabase {
 
 	@Override
 	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
-			String userType, String bio, String major, String status, String interest, String skills) {
+			String userType) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<User>() {
 			@Override
@@ -444,11 +447,11 @@ public class DerbyDatabase implements IDatabase {
 					stmt.setString(6, userType);
 					stmt.setString(7, "https://i.imgur.com/46FYTE7.png");
 					stmt.setString(8, "N/A");
-					stmt.setString(9, bio);
-					stmt.setString(10, major);
-					stmt.setString(11, status);
-					stmt.setString(12, interest);
-					stmt.setString(13, skills);
+					stmt.setString(9, "N/A");
+					stmt.setString(10, "N/A");
+					stmt.setString(11, "N/A");
+					stmt.setString(12, "N/A");
+					stmt.setString(13, "N/A");
 					
 					stmt.execute();
 					
@@ -465,8 +468,13 @@ public class DerbyDatabase implements IDatabase {
 
 					if(resultSet.next()==true) {
 						System.out.println("user has been created");
-						nUser = new User(username, password, userFirstName, userLastName, email, 
-								userType, bio, major, status, interest, skills);
+						nUser = new User();
+						nUser.setUsername(username);
+						nUser.setPassword(password);
+						nUser.setUserFirstName(userFirstName);
+						nUser.setUserLastName(userLastName);
+						nUser.setEmail(email);
+						nUser.setUserType(userType);
 					}
 				}finally {
 					DBUtil.closeQuietly(resultSet);
@@ -492,7 +500,7 @@ public class DerbyDatabase implements IDatabase {
 					conn.setAutoCommit(true);
 					
 					stmt = conn.prepareStatement(
-							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType, posts.tags " + 
 							"FROM users, posts " + 
 							"WHERE users.user_id = posts.poster_id AND (posts.postType = 0 OR posts.postType = 1) " +
 							"ORDER BY posts.post_id DESC"
@@ -533,7 +541,7 @@ public class DerbyDatabase implements IDatabase {
 					conn.setAutoCommit(true);
 					
 					stmt = conn.prepareStatement(
-							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType " + 
+							"SELECT posts.post_id, users.user_id, users.firstName, users.LastName, posts.timePosted, posts.title, posts.description, posts.postType, posts.tags " + 
 							"FROM users, posts " + 
 							"WHERE users.user_id = posts.poster_id AND posts.postType = 2" +
 							"ORDER BY posts.post_id DESC"
@@ -563,7 +571,7 @@ public class DerbyDatabase implements IDatabase {
 	}
 
 	@Override
-	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType) {
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType, String tags) {
 		// TODO Auto-generated method stub
 		return executeTransaction(new Transaction<Post>() {
 			@Override
@@ -577,12 +585,13 @@ public class DerbyDatabase implements IDatabase {
 							
 							conn.setAutoCommit(true);
 							
-							stmt1 = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType) values (?, ?, ?, ?, ?)");
+							stmt1 = conn.prepareStatement("insert into posts (poster_id, timePosted, title, description, postType, tags) values (?, ?, ?, ?, ?, ?)");
 							stmt1.setInt(1, poster_id);
 							stmt1.setString(2, timePosted);
 							stmt1.setString(3, title);
 							stmt1.setString(4, description);
 							stmt1.setInt(5, postType);
+							stmt1.setString(6, tags);
 							stmt1.executeUpdate();
 							
 							//stmt2 = conn.prepareStatement("select * from posts where posts.poster_id = ? and posts.title = ?");

@@ -9,7 +9,7 @@ import edu.ycp.cs320.entrelink.model.User;
 public interface IDatabase {
 	public User findUserByEmailOrUsername(String username);
 	public User insertNewUser(String username, String password, String userFirstName, String userLastName, String email,
-			String userType,	String bio, String major, String status, String interest, String skills);
+			String userType);
 	public User changeUserBio(String username, String bio);
 	public User changeUserPic(String username, String pic);
 	public User changeUserWebsite(String username, String website);
@@ -21,7 +21,7 @@ public interface IDatabase {
 	public ArrayList<Post> findPostsByTitle(String title);
 	public ArrayList<Post> findPostsByUserName(String name);
 	public ArrayList<Post> findAllPosts();
-	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType);
+	public Post insertNewPost(int poster_id, String timePosted, String title, String description, int postType, String tags);
 	public ArrayList<Post> findAllBusinessPosts();
 	public Boolean deleteSinglePost(int poster_id, String title);
 	public Boolean deleteAllUserPosts(int poster_id);

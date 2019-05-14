@@ -50,6 +50,7 @@
 			<c:when test="${! empty loggedInName}">
 				<h2>New Post</h2>
 				<form action="${pageContext.servletContext.contextPath}/new_post" method="post" id="newPostForm">
+					<!--<h4 style="text-align:center;color:red;">${errorMessage}</h4>-->
 					<table id="newPostTable">		
 						<c:choose>
 							<c:when test="${loggedInType != 'Business'}">

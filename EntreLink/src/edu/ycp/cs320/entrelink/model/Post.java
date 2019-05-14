@@ -1,6 +1,7 @@
 package edu.ycp.cs320.entrelink.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Post {
 	
@@ -13,13 +14,13 @@ public class Post {
 	private int postId;
 	private String postTitle;
 	private String postDescription;
-	private ArrayList<String> tags;
+	private String tags;
 	private int postType; //0 = student post; 1 = student skill(s); 2 = business post
 	
 	public Post() {
 		
 	}
-	public Post(User user, String timePosted, String postTitle, String postDescription, ArrayList<String> tags, int postType) {
+	public Post(User user, String timePosted, String postTitle, String postDescription, String tags, int postType) {
 		// User-related fields
 		posterId = user.getUserId();
 		name = user.getUserFirstName() + " " + user.getUserLastName();
@@ -91,7 +92,17 @@ public class Post {
 	
 	
 	// Everything that has to do with tags
-	public void setTags(ArrayList<String> tags) {
+	
+	public String getTags() {
+		return tags;
+	}
+	
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+	
+	// turns out, we might not actually need these
+	/*public void setTags(ArrayList<String> tags) {
 		this.tags = tags;
 	}
 	public ArrayList<String> getTags() {
@@ -109,10 +120,11 @@ public class Post {
 				}
 			}
 		}
-	}
+	}*/
 	
 	public ArrayList<String> separateTags(String tags) {
-		//TODO: make it so that this takes the string of tags (separated by spaces) and returns an ArrayList of tags
-		return null;
+		String[] list = tags.split(" ");
+		ArrayList<String> aList = new ArrayList<String>(Arrays.asList(list));
+		return aList;
 	}
 }

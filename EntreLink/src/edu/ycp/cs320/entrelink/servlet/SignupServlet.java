@@ -54,7 +54,7 @@ public class SignupServlet extends HttpServlet {
 			User model = new User(newUsername, newPassword, firstname, lastname, newEmail, accountType);
 			SignupController controller = new SignupController();
 			controller.setModel(model);
-
+//
 			// check for errors in the form data before using is in a calculation
 			boolean doesUserExist = controller.verifyIsNewUser();
 			boolean areEmailsSame = newEmail.equals(confirmEmail);

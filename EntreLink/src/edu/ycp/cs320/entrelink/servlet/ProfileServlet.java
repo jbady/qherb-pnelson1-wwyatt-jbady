@@ -48,6 +48,9 @@ public class ProfileServlet extends HttpServlet {
 	protected void doOpenProjects(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
 		req.getRequestDispatcher("/_view/projects.jsp").forward(req, resp);
 	}
+	protected void doOpenEditUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
+		req.getRequestDispatcher("/_view/editUser.jsp").forward(req, resp);
+	}
 	protected void doOpenProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException  {
 		req.getRequestDispatcher("/_view/profile.jsp").forward(req, resp);
 	}

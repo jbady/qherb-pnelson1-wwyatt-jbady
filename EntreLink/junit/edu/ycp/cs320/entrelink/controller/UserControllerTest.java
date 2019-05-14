@@ -57,7 +57,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void testChangeUserBio(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserBio(JAdoe.getUsername(), "THIS IS A TEST BIO");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());
@@ -68,7 +68,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void testChangeUserPic(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserPic(JAdoe.getUsername(), "THIS IS A TEST PIC");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());
@@ -78,7 +78,7 @@ public class UserControllerTest {
 	}
 	@Test
 	public void testChangeUserWebsite(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserWebsite(JAdoe.getUsername(), "THIS IS A TEST WEBSITE");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());
@@ -88,7 +88,7 @@ public class UserControllerTest {
 	}
 	@Test
 	public void testChangeUserMajor(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserMajor(JAdoe.getUsername(), "THIS IS A TEST MAJOR");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());
@@ -98,7 +98,7 @@ public class UserControllerTest {
 	}
 	@Test
 	public void testChangeUserStatus(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserStatus(JAdoe.getUsername(), "THIS IS A TEST STATUS");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());
@@ -108,7 +108,7 @@ public class UserControllerTest {
 	}
 	@Test
 	public void testChangeUserInterest(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserInterests(JAdoe.getUsername(), "THIS IS A TEST INTEREST");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());
@@ -118,7 +118,7 @@ public class UserControllerTest {
 	}
 	@Test
 	public void testChangeUserSkills(){
-		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "student", "i'm his wife", "Art", "married", "the children", "basket weaving");
+		User JAdoe = controller.createNewUser("JAdoe", "theMrs", "Jane", "Doe", "JAdoe@gmail.com", "Student");
 		User testUser = controller.editUserSkills(JAdoe.getUsername(), "THIS IS A TEST SKILLS");
 		
 		assertEquals(testUser.getUsername(), JAdoe.getUsername());

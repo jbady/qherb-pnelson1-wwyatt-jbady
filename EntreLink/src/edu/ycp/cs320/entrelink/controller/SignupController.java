@@ -32,7 +32,7 @@ public class SignupController {
 	}
 	
 	public boolean verifyEmailIsValid() {
-		String testEmail = model.getNewEmail();
+		String testEmail = model.getEmail();
 		EmailValidator validate = new EmailValidator();
 		if(validate.validate(testEmail)) {
 

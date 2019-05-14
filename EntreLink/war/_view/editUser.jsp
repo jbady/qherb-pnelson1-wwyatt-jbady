@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-	<title>EntreLink - My Profile</title>
+	<title>EntreLink - Edit User</title>
 	<link rel="stylesheet" type="text/css" href="_view/css/style.css">
 </head>
 <body>
@@ -41,48 +41,42 @@
 	</div>
 
 	<div class="content">
-		<h2>My Profile</h2>
-		<img src="${loggedInImg}" id="profileImg">
-		<h3>${loggedInName}</h3>
-		<p id="profileBio">${loggedInBio}</p>
-		<table id="profileTable">
-			<tr>
-				<td class="leftTable">Major: </td>
-				<td class="rightTable">${loggedInMajor}</td>
-			</tr>
-			<tr>
-				<td class="leftTable">Status: </td>
-				<td class="rightTable">${loggedInStatus}</td>
-			</tr>
-			<tr>
-				<td class="leftTable">Interests: </td>
-				<td class="rightTable">${loggedInInterests}</td>
-			</tr>
-			<tr>
-				<td class="leftTable">Skills: </td>
-				<td class="rightTable">${loggedInSkills}</td>
-			</tr>
-			<tr>
-				<td class="leftTable">WebSite: </td>
-				<td class="rightTable"><a href="${loggedInWebsite}">${loggedInWebsite}</a></td>
-			</tr>
-		</table>
-		<form action="${pageContext.servletContext.contextPath}/edituser" method="openEditUser">
-			<input type="Submit" name="editProfile" value="Edit Profile">
-		</form>
-		<h3>My Projects</h3>
-		<c:forEach items="${posts}" var="post">
-			<div postId="${post.postId}" class="listingPost">
-	            <h3 class="projectTitle">${post.title}<span class="projectPosted"> posted by ${post.name} on ${post.timePosted}</span></h3>
-	            <div class="hideOverflow">
-					<p class="projectDescription">${post.description}</p>
-	            </div>
-			<a href="#">Read More</a>
-	        </div>
-	    </c:forEach>
-		
+		<h2>Edit User</h2>
+				<form action="${pageContext.servletContext.contextPath}/edituser" method="post">
+					<table id="newUserTable">
+						<tr>
+							<td class="leftTable">Major </td>
+							<td class="rightTable"><input type="text" name="usermajor" size="12" value="${usermajor}" class="signupBox"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Bio </td>
+							<td class="rightTable"><input type="text" name="userbio" size="12" value="${userbio}" class="signupBox"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Status </td>
+							<td class="rightTable"><input type="text" name="userstatus" size="12" value="${userstatus}" class="signupBox"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Interests </td>
+							<td class="rightTable"><input type="text" name="userinterests" size="12" value="${userinterests}" class="signupBox"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Skills </td>
+							<td class="rightTable"><input type="text" name="userskills" size="12" value="${userskills}" class="signupBox"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Website </td>
+							<td class="rightTable"><input type="text" name="userwebsite" size="12" value="${userwebsite}" class="signupBox"></td>
+						</tr>
+						<tr>
+							<td class="leftTable">Picture </td>
+							<td class="rightTable"><input type="text" name="userpicture" size="12" value="${userpicture}" class="signupBox"></td>
+						</tr>						
+					</table>
+					<input type="Submit" name="edituser" value="Confirm" style="display: block; margin: 10px auto;" onclick="verifyEquals()">
+				</form>
 	</div>
 
-
+	
 </body>
 </html>
